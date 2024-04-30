@@ -10,7 +10,7 @@ const links = [
 
 const NavBar = () => {
   return (
-    <div className="bg-white flex justify-between">
+    <div className="bg-white flex justify-between p-3">
       <div>
         <h1>LOGO</h1>
       </div>
