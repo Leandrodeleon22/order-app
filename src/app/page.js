@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
-  return <main>home page</main>;
+  return <main>choose a table</main>;
 }

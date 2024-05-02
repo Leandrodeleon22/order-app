@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 const links = [
-  { name: "Menu", href: "/" },
+  { name: "Menu", href: "/home" },
   { name: "About Us", href: "/about" },
   { name: "Contact Us", href: "/contact" },
   { name: "Feedback", href: "/feedback" },
@@ -17,7 +17,11 @@ const NavBar = () => {
       <div>
         {links.map((link) => {
           return (
-            <Link href={link.href} key={link.name} className="mr-5">
+            <Link
+              href={link.href}
+              key={link.name}
+              className="mr-5 hover:text-orange-600"
+            >
               {link.name}
             </Link>
           );

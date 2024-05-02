@@ -1,3 +1,4 @@
+import protectedPage from "@/utils/utils";
 import React from "react";
 
 const About = () => {
