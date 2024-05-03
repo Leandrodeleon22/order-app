@@ -21,9 +21,16 @@ const products = [
     product_category_id: productCategory[0].id,
     image: "",
     name: " cheese burger",
-    sizes: ["small", "medium", "large"],
+    size: "regular",
     description: "This is a cheese burger",
     price: 5,
     note: "",
   },
 ];
+
+module.exports = {
+  admin,
+  tables,
+  products,
+  productCategory,
+};
