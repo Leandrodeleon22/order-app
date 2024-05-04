@@ -8,7 +8,7 @@ const Counter = () => {
         <FaPlus />
       </button>
       <div>1</div>
-      <button>
+      <button className="bg-gray-200 px-2 rounded-[5px]">
         <FaMinus />
       </button>
     </div>
