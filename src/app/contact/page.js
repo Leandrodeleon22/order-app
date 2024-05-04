@@ -1,6 +1,39 @@
-import React from "react";
+"use client";
+import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const serviceId = "service_hizq2mc";
+    const templateId = "template_obvqisx";
+    const publicKey = "A2etVtVHjvnfOMjaj";
+
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      to_name: "Andrew Stefankiv",
+      message: message,
+    };
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setName("");
+        setEmail("");
+        setMessage("");
+      })
+      .catch((error) => {
+        console.log('Error: ', error);
+      });
+  };
+
   return (
     <div className="flex justify-between mx-4">
       <div className="w-1/2 p-4">
@@ -20,17 +53,31 @@ export default function Contact() {
         <p>email@example.com</p>
       </div>
       <div className="w-1/2 p-4">
-        <form className="flex flex-col" style={{ width: "100%" }}>
+        <form className="Contact flex flex-col" style={{ width: "100%" }} onSubmit={handleSubmit}>
           <h2 className="text-2xl font-bold mb-4">Contact us:</h2>
           <br />
           <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" required />
-          <label htmlFor="phone">Phone:</label>
-          <input type="tel" id="phone" name="phone" required />
+          <input
+            type='text'
+            placeholder="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" required />
+          <input
+            type='email'
+            placeholder="Your Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <label htmlFor="message">Message:</label>
-          <textarea id="message" name="message" rows="6" required></textarea>
+          <textarea
+            cols="30"
+            rows="10"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          >
+          </textarea>
           <button type="submit" className="mx-auto bg-orange-500 text-white py-2 px-2 rounded hover:bg-orange-600 transition duration-300 mt-4 font-bold">Send us</button>
         </form>
       </div>

@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import logo from "../media/logo.png"
+import Image from "next/image";
 
 const links = [
   { name: "Menu", href: "/home" },
@@ -12,7 +14,7 @@ const NavBar = () => {
   return (
     <div className="bg-white flex justify-between p-3">
       <div>
-        <h1>LOGO</h1>
+        <Image src={logo} alt="logo" width={150} height={150} />
       </div>
       <div>
         {links.map((link) => {
