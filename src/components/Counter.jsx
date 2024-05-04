@@ -4,7 +4,7 @@ import { FaMinus } from "react-icons/fa";
 const Counter = () => {
   return (
     <div className="flex">
-      <button className="bg-gray-200 px-2 rounded-[5px]">
+      <button className="bg-gray-200 px-2 rounded-[5px]"
         <FaMinus />
       </button>
 
