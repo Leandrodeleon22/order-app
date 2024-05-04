@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import logo from "../media/logo.png"
+import logo from "../media/logo.png";
 import Image from "next/image";
 
 const links = [
