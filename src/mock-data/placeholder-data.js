@@ -1,3 +1,7 @@
+import { PiHamburgerDuotone } from "react-icons/pi";
+import { FaPizzaSlice } from "react-icons/fa";
+import { LuDessert } from "react-icons/lu";
+import { RiDrinks2Fill } from "react-icons/ri";
 const admin = [
   { id: 1, username: "admin", email: "admin@admin.com", password: "admin" },
 ];
@@ -11,9 +15,20 @@ const tables = [
 ];
 
 const productCategory = [
-  { id: 1, name: "Burger" },
-  { id: 2, name: "Dessert" },
-  { id: 3, name: "Beverages" },
+  {
+    id: 1,
+    name: "Burgers",
+    href: "/home/burgers",
+    icon: <PiHamburgerDuotone />,
+  },
+  { id: 2, name: "Pizzas", href: "/home/pizzas", icon: <FaPizzaSlice /> },
+  { id: 3, name: "Desserts", href: "/home/desserts", icon: <LuDessert /> },
+  {
+    id: 4,
+    name: "Beverages",
+    href: "/home/beverages",
+    icon: <RiDrinks2Fill />,
+  },
 ];
 
 const products = [
