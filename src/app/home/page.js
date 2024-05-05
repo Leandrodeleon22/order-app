@@ -14,6 +14,10 @@ export default function Home() {
         <Product />
         <Product />
         <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
         {/* <div></div> */}
       </div>
     </ProductsWrapper>
