@@ -4,7 +4,7 @@ import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { products } from "@/mock-data/placeholder-data";
 import Image from "next/image";
-import Counter from "./Counter";
+
 // import { Cross2Icon } from "@radix-ui/react-icons";
 
 const Product = () => {
@@ -96,7 +96,9 @@ const Product = () => {
       </Dialog.Root>
       <div className="mt-4 flex justify-between">
         <span className="font-semibold">Price: $7</span>
-        <Counter />
+        <button className="bg-gray-200 px-2 rounded-[5px]">
+          <span className="font-bold text-orange-600">ADD</span>
+        </button>
       </div>
     </div>
   );
