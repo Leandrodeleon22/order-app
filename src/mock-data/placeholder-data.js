@@ -41,11 +41,12 @@ const productCategory = [
 const products = [
   {
     product_category_id: productCategory[0].id,
-    image: "",
-    name: " cheese burger",
+    image:
+      "https://res.cloudinary.com/da8jnpdza/image/upload/v1714873725/stjohns_burger_mwth9j.png",
+    name: "St John's Burger",
     size: "regular",
-    description: "This is a cheese burger",
-    price: 5,
+    description: "This is St John's Burger",
+    price: 7,
     note: "",
   },
 ];
