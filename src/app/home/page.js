@@ -3,13 +3,18 @@ import ProductsWrapper from "@/components/ProductsWrapper";
 import { products } from "@/mock-data/placeholder-data";
 
 export default function Home() {
-  console.log(products);
   return (
     <ProductsWrapper>
-      <div className="flex justify-between">
+      <div
+        className=" grid grid-cols-3 gap-4 justify-between
+      "
+      >
         <Product />
         <Product />
         <Product />
+        <Product />
+        <Product />
+        {/* <div></div> */}
       </div>
     </ProductsWrapper>
   );
