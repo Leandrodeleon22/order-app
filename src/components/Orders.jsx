@@ -1,5 +1,6 @@
 import React from "react";
 import { MdDeleteOutline } from "react-icons/md";
+import { IoCloseSharp } from "react-icons/io5";
 import Counter from "./Counter";
 
 const Orders = () => {
@@ -10,17 +11,20 @@ const Orders = () => {
         <MdDeleteOutline className="cursor-pointer" />
       </div>
       <div className="bg-slate-100 p-2 rounded-md">
-        <p className="font-semibold">Toronto Burger</p>
-        <p className="italic text-gray-500">Delicious toronto burger</p>
-        <div className="flex justify-between mt-6">
-          <span className="font-bold">$60</span>
+        <div className="flex justify-between">
+          <p className="font-semibold">Regina Burger</p>
+          <IoCloseSharp className="cursor-pointer" />
+        </div>
+        {/* <p className="italic text-gray-500">Delicious toronto burger</p> */}
+        <div className="flex justify-between mt-4">
+          <span className="font-bold">$7</span>
           <Counter />
         </div>
       </div>
 
       <div className="flex flex-col  items-center mt-14">
         <span className="font-bold text-[1.5rem]">TOTAL</span>
-        <span>$60.00</span>
+        <span>$70.00</span>
       </div>
 
       <button className="bg-red-500 rounded-md py-3 text-white mt-5 hover:bg-red-600 text-[1.1rem]">
