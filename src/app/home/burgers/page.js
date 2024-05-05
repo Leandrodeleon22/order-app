@@ -1,7 +1,12 @@
+import ProductsWrapper from "@/components/ProductsWrapper";
 import React from "react";
 
 const Burgers = () => {
-  return <div className="bg-green-300 mx-5 w-full">I am Burger</div>;
+  return (
+    <ProductsWrapper>
+      <h1>I am burger</h1>
+    </ProductsWrapper>
+  );
 };
 
 export default Burgers;
