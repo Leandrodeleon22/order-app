@@ -1,7 +1,9 @@
-import Menu from "@/components/Menu";
-import Orders from "@/components/Orders";
-import Products from "@/components/Products";
+import ProductsWrapper from "@/components/ProductsWrapper";
 
 export default function Home() {
-  return <Products />;
+  return (
+    <ProductsWrapper>
+      <h1> All products</h1>
+    </ProductsWrapper>
+  );
 }
