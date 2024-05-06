@@ -27,7 +27,9 @@ const NavBar = () => {
                 index !== links.length - 1 ? "mr-5" : ""
               }  hover:text-orange-600`}
             >
-              <span className="font-semibold">{link.name}</span>
+              <span className="font-semibold hover:underline hover:underline-offset-8">
+                {link.name}
+              </span>
             </Link>
           );
         })}
