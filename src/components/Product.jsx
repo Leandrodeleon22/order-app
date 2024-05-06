@@ -16,13 +16,13 @@ const Product = () => {
   };
 
   return (
-    <div className="bg-slate-100 mr-3 w-full p-4 rounded-md">
+    <div className="bg-slate-100 mr-3 w-full p-4 rounded-md shadow-lg transform transition-transform hover:scale-105">
       <Dialog.Root>
         <Dialog.Trigger asChild>
           {/* min-w-[16rem] */}
           {/* bg-slate-100 mr-3 w-full p-4 rounded-md */}
-          <div className=" w-full">
-            <div className="flex justify-center mb-2">
+          <div className=" w-full cursor-pointer">
+            <div className="flex justify-center mb-2 ">
               <Image
                 loader={imageLoader}
                 src="stjohns_burger_mwth9j.png"
