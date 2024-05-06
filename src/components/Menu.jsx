@@ -4,10 +4,10 @@ import Link from "next/link";
 import { BiFoodMenu } from "react-icons/bi";
 const Menu = () => {
   return (
-    <div className="bg-white w-1/4 flex flex-col p-3 rounded-xl">
+    <div className="bg-white h-min w-1/4 flex flex-col p-3 rounded-xl">
       <div className="flex items-center mb-4">
         <BiFoodMenu className="text-lg" />
-        <h2 className="font-medium  ml-4 text-[1.4rem] ">MENU</h2>
+        <h2 className="font-medium  ml-4 text-[1.4rem] text-red-500 ">MENU</h2>
       </div>
       {productCategory.map((product, index) => {
         return (

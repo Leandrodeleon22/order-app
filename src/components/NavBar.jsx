@@ -13,10 +13,11 @@ const links = [
 const NavBar = () => {
   return (
     <nav className="w-full bg-white flex justify-between px-10 py-3">
-      <div>
+      <Link href="/home" className="cursor-pointer">
         <Image src={logo} alt="logo" width={150} height={150} />
-      </div>
-      <div>
+      </Link>
+
+      <div className="flex items-center">
         {links.map((link, index) => {
           return (
             <Link
@@ -26,7 +27,9 @@ const NavBar = () => {
                 index !== links.length - 1 ? "mr-5" : ""
               }  hover:text-orange-600`}
             >
-              {link.name}
+              <span className="font-semibold hover:underline hover:underline-offset-8">
+                {link.name}
+              </span>
             </Link>
           );
         })}

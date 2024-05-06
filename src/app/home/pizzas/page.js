@@ -1,7 +1,12 @@
+import ProductsWrapper from "@/components/ProductsWrapper";
 import React from "react";
 
 const Pizzas = () => {
-  return <div className="bg-green-300 mx-5 w-full">I am Pizza</div>;
+  return (
+    <ProductsWrapper>
+      <h1>I am Pizza</h1>
+    </ProductsWrapper>
+  );
 };
 
 export default Pizzas;
