@@ -1,3 +1,4 @@
+// import Feedback from '@/app/feedback/page';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -171,6 +172,71 @@ async function createDessertProduct(name: string, description: string, weight: s
   } else {
     console.log(`Product ${name} already exists.`);
   }
+}
+
+
+async function createFeedback(tableId: number, answers: [number, number, number, string]) {
+  // Check if the table exists
+  const existingTable = await prisma.table.findUnique({
+    where: { tableId: tableId },
+  });
+
+  if (!existingTable) {
+    console.log('Table does not exist.');
+    return;
+  }
+
+  const existingFeedback = await prisma.feedback.findFirst({
+    where: {
+      tableId: tableId,
+      answerFour: answers[3],
+    },
+  });
+
+  if (existingFeedback) {
+    console.log('Feedback already exists.');
+    return;
+  }
+
+  // Create the feedback
+  await prisma.feedback.create({
+    data: {
+      answerOne: answers[0],
+      answerTwo: answers[1],
+      answerThree: answers[2],
+      answerFour: answers[3],
+      tableId: tableId,
+    },
+  });
+  console.log(`Created feedback for table ${tableId}.`);
+}
+
+
+async function createOrder(tableId: number, products: { productId: number, quantity: number, orderStatus: string }[]) {
+  const existingTable = await prisma.table.findUnique({
+    where: { tableId: tableId },
+  });
+
+  if (!existingTable) {
+    console.log('Table does not exist.');
+    return;
+  }
+  
+  const orderDetails = products.map(product => {
+    const { productId, quantity, orderStatus } = product;
+    return {
+      tableId: tableId,
+      productId: productId,
+      orderStatus: orderStatus,
+      quantity: quantity,
+    };
+  });
+
+  await prisma.order.createMany({
+    data: orderDetails,
+  });
+
+  console.log(`Created order for table ${tableId}.`);
 }
 
 async function main() {
@@ -408,6 +474,17 @@ async function main() {
     14000
   );
 
+
+  createFeedback(1, [5, 4, 3, "This is the best place I have been to."]);
+
+
+  createOrder(1, [
+    { productId: 1, quantity: 2, orderStatus: 'pending' },
+    { productId: 2, quantity: 1, orderStatus: 'pending' },
+    { productId: 3, quantity: 3, orderStatus: 'pending' },
+    { productId: 4, quantity: 2, orderStatus: 'pending' },
+  ]);
+
   await prisma.$disconnect();
 }
 
@@ -416,3 +493,6 @@ main()
     console.error('Error during category creation:', e);
     process.exit(1);
   });
+
+// npx prisma db seed                     - run the seed file(updates seeds.ts file)
+// npx prisma migrate dev --name somename - create a new migration(updates the schema.prisma file)
