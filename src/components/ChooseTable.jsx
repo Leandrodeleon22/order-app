@@ -32,8 +32,15 @@ const ChooseTable = () => {
         <option value="Table 1">Table 1</option>
         <option value="Table 2">Table 2</option>
         <option value="Table 3">Table 3</option>
+        <option value="Table 4">Table 4</option>
+        <option value="Table 5">Table 5</option>
+        <option value="Table 6">Table 6</option>
+        <option value="Table 7">Table 7</option>
       </select>
       <p className="text-white text-[1.2rem]">You selected: {selectedOption}</p>
+      <button className="bg-red-500 tracking-[.5rem] font-bold uppercase text-white px-7 w-[17rem] py-2 rounded-md mt-6">
+        Submit
+      </button>
     </div>
   );
 };
