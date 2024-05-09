@@ -1,3 +1,4 @@
+// import Footer from "../../components/Footer";
 import Product from "../../components/Product";
 import ProductsWrapper from "../../components/ProductsWrapper";
 import { products } from "../../mock-data/placeholder-data";
