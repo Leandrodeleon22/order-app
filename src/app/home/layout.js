@@ -1,7 +1,7 @@
-import Footer from "@/components/Footer";
-import Menu from "@/components/Menu";
-import Orders from "@/components/Orders";
-import Products from "@/components/ProductsWrapper";
+import Footer from "../../components/Footer";
+import Menu from "../../components/Menu";
+import Orders from "../../components/Orders";
+import Products from "../../components/ProductsWrapper";
 
 export default function Layout({ children }) {
   return (

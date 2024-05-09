@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
-import Footer from "@/components/Footer";
+import Footer from "../../components/Footer";
 
 export default function Contact() {
   const [name, setName] = useState("");

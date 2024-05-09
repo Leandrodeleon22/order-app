@@ -3,6 +3,10 @@ import Link from "next/link";
 import logo from "../media/logo.png";
 import Image from "next/image";
 
+import { getServerSession } from 'next-auth';
+import { LogoutButton } from "../app/auth";
+import { authOptions } from "../app/api/auth/[...nextauth]/route";
+
 const links = [
   { name: "Menu", href: "/home" },
   { name: "About Us", href: "/about" },
@@ -10,7 +14,11 @@ const links = [
   { name: "Feedback", href: "/feedback" },
 ];
 
-const NavBar = () => {
+
+
+const NavBar = async() => {
+  const session = await getServerSession(authOptions);
+
   return (
     <nav className="w-full bg-white flex justify-between px-10 py-3">
       <Link href="/home" className="cursor-pointer">
@@ -18,6 +26,14 @@ const NavBar = () => {
       </Link>
 
       <div className="flex items-center">
+
+        {session && (
+          <div className="flex items-center mr-5">
+            <pre className="font-bold text-red-500 mr-2">{session?.user?.name}</pre>
+            <LogoutButton className="text-sm bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 border border-red-700 rounded shadow transition-colors duration-300" />
+          </div>
+        )}
+
         {links.map((link, index) => {
           return (
             <Link

@@ -1,6 +1,10 @@
+
 import Product from "@/components/Product";
-import ProductsWrapper from "@/components/ProductsWrapper";
+// import ProductsWrapper from "@/components/ProductsWrapper";
 import { fetchAllPizza } from "@/lib/data";
+
+import ProductsWrapper from "../../../components/ProductsWrapper";
+
 import React from "react";
 
 const Pizzas = async () => {

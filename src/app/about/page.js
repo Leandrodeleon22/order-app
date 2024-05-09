@@ -8,7 +8,7 @@ import {
   faInstagram,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
-import Footer from "@/components/Footer";
+import Footer from "../../components/Footer";
 
 export default function About() {
   return (

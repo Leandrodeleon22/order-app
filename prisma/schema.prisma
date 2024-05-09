@@ -39,12 +39,19 @@ model ProductCategory {
   products           Product[]
 }
 
+enum userRole {
+  MANAGER
+  ADMIN
+  WAITER
+}
+
 // Admin model
-model Admin {
-  adminId            Int         @id @default(autoincrement())
+model User {
+  userId            Int         @id @default(autoincrement())
   username           String
   email              String
   password           String
+  role               userRole   @default(MANAGER)
 }
 
 // Orders model

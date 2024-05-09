@@ -261,9 +261,92 @@ async function createOrder(
   await prisma.order.createMany({
     data: orderDetails,
   });
-
-  console.log(`Created order for table ${tableId}.`);
 }
+
+
+
+
+async function createAdmin(username: string, email: string, password: string) {
+  // Check if an admin user with the same name already exists
+  const existingAdmin = await prisma.user.findFirst({
+    where: {
+      username: username,
+      role: 'ADMIN',
+    },
+  });
+
+  if (!existingAdmin) {
+    // If the admin user does not exist, create it
+    await prisma.user.create({
+      data: {
+        username: username,
+        email: email,
+        password: password,
+        role: 'ADMIN',
+      },
+    });
+    console.log(`Created admin user: ${username}`);
+  } else {
+    console.log(`Admin user '${username}' already exists.`);
+  }
+}
+
+
+
+
+async function createWaiter(username: string, email: string, password: string) {
+  // Check if an admin user with the same name already exists
+  const existingWaiter = await prisma.user.findFirst({
+    where: {
+      username: username,
+      role: 'WAITER',
+    },
+  });
+
+  if (!existingWaiter) {
+    // If the admin user does not exist, create it
+    await prisma.user.create({
+      data: {
+        username: username,
+        email: email,
+        password: password,
+        role: 'WAITER',
+      },
+    });
+    console.log(`Created waiter user: ${username}`);
+  } else {
+    console.log(`Waiter user '${username}' already exists.`);
+  }
+}
+
+
+
+
+async function createManager(username: string, email: string, password: string) {
+  // Check if an admin user with the same name already exists
+  const existingManager = await prisma.user.findFirst({
+    where: {
+      username: username,
+      role: 'MANAGER',
+    },
+  });
+
+  if (!existingManager) {
+    // If the admin user does not exist, create it
+    await prisma.user.create({
+      data: {
+        username: username,
+        email: email,
+        password: password,
+        role: 'MANAGER',
+      },
+    });
+    console.log(`Created manager user: ${username}`);
+  } else {
+    console.log(`Manager user '${username}' already exists.`);
+  }
+}
+
 
 async function main() {
   await createCategoryIfNotExists("burgers");
@@ -538,6 +621,14 @@ async function main() {
     { productId: 3, quantity: 3, orderStatus: "pending" },
     { productId: 4, quantity: 2, orderStatus: "pending" },
   ]);
+
+
+  await createManager('manager1', 'manager1@gmail.com', 'password');
+
+  await createAdmin('admin1', 'admin1@gmail.com', 'password');
+
+  await createWaiter('waiter1', 'waiter@gmail.com', 'password');
+
 
   await prisma.$disconnect();
 }
