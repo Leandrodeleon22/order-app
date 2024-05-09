@@ -1,4 +1,4 @@
-import ProductsWrapper from "@/components/ProductsWrapper";
+import ProductsWrapper from "../../../components/ProductsWrapper";
 import React from "react";
 
 const Burgers = () => {

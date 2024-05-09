@@ -1,4 +1,4 @@
-import ChooseTable from "@/components/ChooseTable";
+import ChooseTable from "../components/ChooseTable";
 
 export default function Home() {
   return (

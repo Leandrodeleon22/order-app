@@ -1,14 +1,6 @@
 "use client";
-
 import React, { useState } from "react";
 
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-// import {
-//   HamburgerMenuIcon,
-//   DotFilledIcon,
-//   CheckIcon,
-//   ChevronRightIcon,
-// } from "@radix-ui/react-icons";
 
 const ChooseTable = () => {
   const [selectedOption, setSelectedOption] = useState("");
