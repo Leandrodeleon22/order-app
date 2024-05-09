@@ -1,5 +1,5 @@
 import React from "react";
-import { productCategory } from "@/mock-data/placeholder-data";
+import { productCategory } from "../mock-data/placeholder-data";
 import Link from "next/link";
 import { BiFoodMenu } from "react-icons/bi";
 const Menu = () => {

@@ -2,7 +2,7 @@
 import React from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { products } from "@/mock-data/placeholder-data";
+import { products } from "../mock-data/placeholder-data";
 import Image from "next/image";
 import Counter from "./Counter";
 

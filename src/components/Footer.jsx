@@ -1,19 +1,19 @@
 import React from "react";
-// import styles from "./Footer.module.css";
+import Link from "next/link";
 
-export default function Footer() {
+export default async function Footer() {
+
   return (
     <footer className="fixed bottom-0 w-full bg-gray-900 text-white py-2 text-center">
       <div className="inline">
-        <p>
+        <span>
           &copy; {new Date().getFullYear()} Intro Foods. All rights reserved.
-        </p>
-        {/* <ul>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Terms of Service</li>
-          <li>Privacy Policy</li>
-        </ul> */}
+        </span>
+      </div>
+      <div className="inline">
+        <Link href="/dashboard" className="hover:underline ml-10">
+              Staff
+        </Link>
       </div>
     </footer>
   );
