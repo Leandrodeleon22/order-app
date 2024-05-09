@@ -27,7 +27,7 @@ const Orders = () => {
         <span>$70.00</span>
       </div>
 
-      <button className="bg-red-500 rounded-md py-3 text-white mt-5 hover:bg-red-600 text-[1.1rem]">
+      <button className="bg-red-500 rounded-md py-3 font-bold text-white mt-5 hover:bg-red-600 text-[1.1rem]">
         Confirm Order
       </button>
     </div>

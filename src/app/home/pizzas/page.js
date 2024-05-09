@@ -1,10 +1,42 @@
+import Product from "@/components/Product";
 import ProductsWrapper from "@/components/ProductsWrapper";
+import { fetchAllPizza } from "@/lib/data";
 import React from "react";
 
-const Pizzas = () => {
+const Pizzas = async () => {
+  const allPizzas = await fetchAllPizza();
+
   return (
     <ProductsWrapper>
-      <h1>I am Pizza</h1>
+      <div
+        className=" grid grid-cols-3 gap-4 justify-between
+      "
+      >
+        {allPizzas.map((product) => {
+          const {
+            productId,
+            productCategoryId,
+            image,
+            name,
+            weight,
+            description,
+            price,
+            note,
+          } = product;
+          return (
+            <Product
+              key={productId}
+              productCategoryId={productCategoryId}
+              image={image}
+              name={name}
+              weight={weight}
+              description={description}
+              price={price}
+              note={note}
+            />
+          );
+        })}
+      </div>
     </ProductsWrapper>
   );
 };
