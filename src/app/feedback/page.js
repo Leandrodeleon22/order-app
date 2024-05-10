@@ -1,5 +1,6 @@
-import Footer from "@/components/Footer";
-import RateStars from "@/components/RateStars";
+import Footer from "../../components/Footer";
+// import RateStars from "@/components/RateStars";
+import RateStars from "../../components/RateStars";
 import React from "react";
 import { MdStarRate } from "react-icons/md";
 const Feedback = () => {

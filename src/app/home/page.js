@@ -1,15 +1,13 @@
-
-import Footer from "@/components/Footer";
+import Footer from "../../components/Footer";
 // import Product from "@/components/Product";
 // import ProductsWrapper from "@/components/ProductsWrapper";
-import { fetchAllProduct } from "@/lib/data";
+import { fetchAllProduct } from "../../lib/data";
 // import { products } from "@/mock-data/placeholder-data";
 
 // import Footer from "../../components/Footer";
 import Product from "../../components/Product";
 import ProductsWrapper from "../../components/ProductsWrapper";
 import { products } from "../../mock-data/placeholder-data";
-
 
 export default async function Home() {
   const allProducts = await fetchAllProduct();
