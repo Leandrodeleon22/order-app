@@ -633,10 +633,12 @@ async function main() {
   await prisma.$disconnect();
 }
 
-main().catch((e) => {
-  console.error("Error during category creation:", e);
-  process.exit(1);
-});
+main()
+  .catch(e => {
+    console.error('Error during category creation:', e);
+    process.exit(1);
+  });
 
-// npx prisma db seed                     - run the seed file(updates seeds.ts file)
-// npx prisma migrate dev --name somename - create a new migration(updates the schema.prisma file)
+
+//npx prisma db seed               - to seed(update) the database (this file)
+//npx migrate dev --name somename  - to create a migration (update schema.prisma file)
