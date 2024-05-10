@@ -1,11 +1,9 @@
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '../../../../lib/prisma';
-import { userAgent } from 'next/server';
-import { User } from '@prisma/client';
 
-const comparePasswords = (plainPassword, hashedPassword) => {
-  return plainPassword === hashedPassword;
+const comparePasswords = (plainPassword, Password) => {
+  return plainPassword === Password;
 };
 
 export const authOptions: NextAuthOptions = {
@@ -40,7 +38,8 @@ export const authOptions: NextAuthOptions = {
         }
         return { id: user.userId,
           email: user.email,
-          name: user.username
+          name: user.username,
+          role: user.role,
         };
       }
     }),
@@ -52,7 +51,8 @@ export const authOptions: NextAuthOptions = {
         ...session,
         user: {
           ...session.user,
-          id: token.id
+          id: token.id,
+          role: token.role
         }
       };
     },
@@ -62,7 +62,8 @@ export const authOptions: NextAuthOptions = {
         const u = user as unknown as any;
         return {
           ...token,
-          id: u.userId
+          id: u.userId,
+          role: u.role
         };
       }
       return token;
