@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -19,13 +20,20 @@ async function createCategoryIfNotExists(categoryName: string) {
   }
 }
 
-async function createBeverageProduct(name: string, description: string, weight: string, price: number) {
+async function createBeverageProduct(
+  name: string,
+  description: string,
+  weight: string,
+  price: number,
+  image?: string
+) {
+  // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
-    where: { name: 'beverages' },
+    where: { name: "beverages" },
   });
 
   if (!category) {
-    console.log('Beverages category does not exist, please create it first.');
+    console.log("Beverages category does not exist, please create it first.");
     return;
   }
 
@@ -44,8 +52,8 @@ async function createBeverageProduct(name: string, description: string, weight: 
         productCategoryId: category.productCat,
         weight: weight,
         price: price,
-        note: null,
         image: null,
+        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -54,13 +62,20 @@ async function createBeverageProduct(name: string, description: string, weight: 
   }
 }
 
-async function createBurgerProduct(name: string, description: string, weight: string, price: number) {
+async function createBurgerProduct(
+  name: string,
+  description: string,
+  weight: string,
+  price: number,
+  image?: string
+) {
+  // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
-    where: { name: 'burgers' },
+    where: { name: "burgers" },
   });
 
   if (!category) {
-    console.log('Burgers category does not exist, please create it first.');
+    console.log("Burgers category does not exist, please create it first.");
     return;
   }
 
@@ -79,8 +94,8 @@ async function createBurgerProduct(name: string, description: string, weight: st
         productCategoryId: category.productCat,
         weight: weight,
         price: price,
-        note: null,
         image: null,
+        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -89,14 +104,20 @@ async function createBurgerProduct(name: string, description: string, weight: st
   }
 }
 
-
-async function createPizzaProduct(name: string, description: string, weight: string, price: number) {
+async function createPizzaProduct(
+  name: string,
+  description: string,
+  weight: string,
+  price: number,
+  image?: string
+) {
+  // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
-    where: { name: 'pizzas' },
+    where: { name: "pizzas" },
   });
 
   if (!category) {
-    console.log('Pizzas category does not exist, please create it first.');
+    console.log("Pizzas category does not exist, please create it first.");
     return;
   }
 
@@ -115,8 +136,8 @@ async function createPizzaProduct(name: string, description: string, weight: str
         productCategoryId: category.productCat,
         weight: weight,
         price: price,
-        note: null,
         image: null,
+        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -125,14 +146,20 @@ async function createPizzaProduct(name: string, description: string, weight: str
   }
 }
 
-
-async function createDessertProduct(name: string, description: string, weight: string, price: number) {
+async function createDessertProduct(
+  name: string,
+  description: string,
+  weight: string,
+  price: number,
+  image?: string
+) {
+  // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
-    where: { name: 'desserts' },
+    where: { name: "desserts" },
   });
 
   if (!category) {
-    console.log('Desserts category does not exist, please create it first.');
+    console.log("Desserts category does not exist, please create it first.");
     return;
   }
 
@@ -151,8 +178,8 @@ async function createDessertProduct(name: string, description: string, weight: s
         productCategoryId: category.productCat,
         weight: weight,
         price: price,
-        note: null,
         image: null,
+        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -161,14 +188,17 @@ async function createDessertProduct(name: string, description: string, weight: s
   }
 }
 
-
-async function createFeedback(tableId: number, answers: [number, number, number, string]) {
+async function createFeedback(
+  tableId: number,
+  answers: [number, number, number, string]
+) {
+  // Check if the table exists
   const existingTable = await prisma.table.findUnique({
     where: { tableId: tableId },
   });
 
   if (!existingTable) {
-    console.log('Table does not exist.');
+    console.log("Table does not exist.");
     return;
   }
 
@@ -180,7 +210,7 @@ async function createFeedback(tableId: number, answers: [number, number, number,
   });
 
   if (existingFeedback) {
-    console.log('Feedback already exists.');
+    console.log("Feedback already exists.");
     return;
   }
 
@@ -223,11 +253,11 @@ async function createOrder(tableId: number, products: { productId: number, quant
   });
 
   if (!existingTable) {
-    console.log('Table does not exist.');
+    console.log("Table does not exist.");
     return;
   }
-  
-  const orderDetails = products.map(product => {
+
+  const orderDetails = products.map((product) => {
     const { productId, quantity, orderStatus } = product;
     return {
       tableId: tableId,
@@ -299,10 +329,10 @@ async function createManager(username: string, email: string, password: string) 
 
 
 async function main() {
-  await createCategoryIfNotExists('burgers');
-  await createCategoryIfNotExists('pizzas');
-  await createCategoryIfNotExists('desserts');
-  await createCategoryIfNotExists('beverages');
+  await createCategoryIfNotExists("burgers");
+  await createCategoryIfNotExists("pizzas");
+  await createCategoryIfNotExists("desserts");
+  await createCategoryIfNotExists("beverages");
 
   // Creating products
   await createBeverageProduct(
@@ -412,7 +442,6 @@ async function main() {
     1800
   );
 
-
   await createPizzaProduct(
     'Abbotsford pizza',
     'Experience a slice of culinary delight with our Abbotsford Pizza, featuring a crispy thin crust topped with premium marinara sauce, gooey mozzarella cheese, and your choice of mouthwatering toppings, delivering a perfect balance of flavors in every bite.',
@@ -482,7 +511,6 @@ async function main() {
     '900g',
     3300
   );
-
 
   await createDessertProduct(
     'Cheesecake',
@@ -562,11 +590,10 @@ async function main() {
   await prisma.$disconnect();
 }
 
-main()
-  .catch(e => {
-    console.error('Error during category creation:', e);
-    process.exit(1);
-  });
+main().catch((e) => {
+  console.error("Error during category creation:", e);
+  process.exit(1);
+});
 
 
 // npx prisma db seed                     - run the seed file(updates seeds.ts file)
