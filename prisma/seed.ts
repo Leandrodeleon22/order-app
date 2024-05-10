@@ -240,6 +240,8 @@ async function createOrder(tableId: number, products: { productId: number, quant
   await prisma.order.createMany({
     data: orderDetails,
   });
+
+  console.log(`Created order for table ${tableId}.`);
 }
 
 
