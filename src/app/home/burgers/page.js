@@ -1,7 +1,8 @@
-
-import Product from "@/components/Product";
+// import Product from "@/components/Product";
+import Product from "../../../components/Product";
 // import ProductsWrapper from "@/components/ProductsWrapper";
-import { fetchAllBurger } from "@/lib/data";
+// import { fetchAllBurger } from "@/lib/data";
+import { fetchAllBurger } from "../../../lib/data";
 
 import ProductsWrapper from "../../../components/ProductsWrapper";
 

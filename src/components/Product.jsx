@@ -5,7 +5,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { products } from "../mock-data/placeholder-data";
 import Image from "next/image";
 import Counter from "./Counter";
-import { formattedPrice } from "@/utils/utils";
+// import { formattedPrice } from "@/utils/utils";
+import { formattedPrice } from "../utils/utils";
 import { IoClose } from "react-icons/io5";
 
 // import { Cross2Icon } from "@radix-ui/react-icons";
