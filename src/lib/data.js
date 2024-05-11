@@ -1,7 +1,8 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { prisma } from "./prisma";
+import { cache } from "react";
 
-export async function fetchAllProduct() {
+export const fetchAllProduct = cache(async () => {
   noStore();
 
   try {
@@ -11,7 +12,30 @@ export async function fetchAllProduct() {
   } catch (error) {
     console.log("error");
   }
+});
+
+export async function getAllTables() {
+  noStore();
+  try {
+    const data = await prisma.table.findMany();
+    return data;
+  } catch (error) {
+    console.log("error");
+  }
 }
+
+export const getSingleTableNumber = async (num) => {
+  try {
+    const data = await prisma.table.findMany({
+      where: {
+        tableNumber: num,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log("error");
+  }
+};
 
 export async function fetchAllBurger() {
   noStore();

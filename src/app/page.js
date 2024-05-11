@@ -1,13 +1,18 @@
 import ChooseTable from "../components/ChooseTable";
+import { getAllTables, getSingleTableNumber } from "../lib/data";
 
-export default function Home() {
+export default async function Home() {
+  const allTables = await getAllTables();
+  // const testTable = await getSingleTableNumber(parseInt("1"));
+  // console.log(testTable);
+  // console.log(allTables);
   return (
     <main className="w-full h-screen overflow-hidden">
       {/* <div className="bg-red-400 w-[20rem] absolute translate-y-1/2 top-1/2 mr-auto left-0 right-0 ml-auto ">
         <ChooseTable />
       </div> */}
       <div className="fixed left-1/2 top-1/2 -translate-x-1/2 w-[20rem] ">
-        <ChooseTable />
+        <ChooseTable allTables={allTables} />
       </div>
       <video
         autoPlay
