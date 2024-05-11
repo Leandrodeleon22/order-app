@@ -8,16 +8,17 @@ export default async function Dashboard() {
 
   if (!session || !session.user || !session.user.role) {
     redirect('/api/auth/signin');
+    
   }
-  if (session.user.role === 'MANAGER') {
-    redirect('/manager');
+  if (session.user.role === 'ADMIN') {
+    redirect('/dashboard');
   }
 
   return (
     <div>
       <div className="inline">
         <br />
-        <h1 className="bg-gray-100 text-xl font-bold mb-4">Admin Dashboard - Server Session - {JSON.stringify(session)}</h1>
+        <h1 className="bg-gray-100 text-xl font-bold mb-4">Manager Dashboard - Server Session - {JSON.stringify(session)}</h1>
       </div>
     </div>
   );
