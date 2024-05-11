@@ -274,14 +274,11 @@ async function createOrder(tableId: number, products: { productId: number, quant
   console.log(`Created order for table ${tableId}.`);
 }
 
-
-
-
 async function createAdmin(username: string, email: string, password: string) {
   const existingAdmin = await prisma.user.findFirst({
     where: {
       username: username,
-      role: 'ADMIN',
+      role: "ADMIN",
     },
   });
 
@@ -291,7 +288,7 @@ async function createAdmin(username: string, email: string, password: string) {
         username: username,
         email: email,
         password: password,
-        role: 'ADMIN',
+        role: "ADMIN",
       },
     });
     console.log(`Created admin user: ${username}`);
@@ -301,13 +298,47 @@ async function createAdmin(username: string, email: string, password: string) {
 }
 
 
+async function createWaiter(username: string, email: string, password: string) {
+  // Check if an admin user with the same name already exists
+  const existingWaiter = await prisma.user.findFirst({
+    where: {
+      username: username,
+      role: "WAITER",
+    },
+  });
+
+  if (!existingWaiter) {
+    // If the admin user does not exist, create it
+    await prisma.user.create({
+      data: {
+        username: username,
+        email: email,
+        password: password,
+        role: "WAITER",
+      },
+    });
+    console.log(`Created waiter user: ${username}`);
+  } else {
+    console.log(`Waiter user '${username}' already exists.`);
+  }
+}
+
+async function createManager(
+  username: string,
+  email: string,
+  password: string
+) {
+  // Check if an admin user with the same name already exists
+
+
 
 
 async function createManager(username: string, email: string, password: string) {
+
   const existingManager = await prisma.user.findFirst({
     where: {
       username: username,
-      role: 'MANAGER',
+      role: "MANAGER",
     },
   });
 
@@ -317,7 +348,7 @@ async function createManager(username: string, email: string, password: string) 
         username: username,
         email: email,
         password: password,
-        role: 'MANAGER',
+        role: "MANAGER",
       },
     });
     console.log(`Created manager user: ${username}`);
@@ -326,6 +357,13 @@ async function createManager(username: string, email: string, password: string) 
   }
 }
 
+async function createTableNumber(tableNumber: any) {
+  await prisma.table.create({
+    data: {
+      tableNumber: tableNumber,
+    },
+  });
+}
 
 
 async function main() {
@@ -333,6 +371,14 @@ async function main() {
   await createCategoryIfNotExists("pizzas");
   await createCategoryIfNotExists("desserts");
   await createCategoryIfNotExists("beverages");
+
+  await createTableNumber(1);
+  await createTableNumber(2);
+  await createTableNumber(3);
+  await createTableNumber(4);
+  await createTableNumber(5);
+  await createTableNumber(6);
+  await createTableNumber(7);
 
   // Creating products
   await createBeverageProduct(
@@ -575,6 +621,10 @@ async function main() {
     { productId: 4, quantity: 2, orderStatus: 'pending' },
   ]);
 
+  await createManager("manager1", "manager1@gmail.com", "password");
+
+
+
 
 
   await createFeedback(1, [5, 4, 3, "This is the best place I have been to."]);
@@ -586,6 +636,8 @@ async function main() {
   await createAdmin('admin1', 'admin1@gmail.com', 'password');
 
 
+
+  await createWaiter("waiter1", "waiter@gmail.com", "password");
 
   await prisma.$disconnect();
 }
