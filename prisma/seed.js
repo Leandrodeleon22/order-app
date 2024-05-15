@@ -1,9 +1,8 @@
-
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function createCategoryIfNotExists(categoryName: string) {
+async function createCategoryIfNotExists(categoryName) {
   const existingCategory = await prisma.productCategory.findFirst({
     where: { name: categoryName },
   });
@@ -21,11 +20,11 @@ async function createCategoryIfNotExists(categoryName: string) {
 }
 
 async function createBeverageProduct(
-  name: string,
-  description: string,
-  weight: string,
-  price: number,
-  image?: string
+  name,
+  description,
+  weight,
+  price,
+  image
 ) {
   // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
@@ -63,11 +62,11 @@ async function createBeverageProduct(
 }
 
 async function createBurgerProduct(
-  name: string,
-  description: string,
-  weight: string,
-  price: number,
-  image?: string
+  name,
+  description,
+  weight,
+  price,
+  image
 ) {
   // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
@@ -105,11 +104,11 @@ async function createBurgerProduct(
 }
 
 async function createPizzaProduct(
-  name: string,
-  description: string,
-  weight: string,
-  price: number,
-  image?: string
+  name,
+  description,
+  weight,
+  price,
+  image
 ) {
   // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
@@ -147,11 +146,11 @@ async function createPizzaProduct(
 }
 
 async function createDessertProduct(
-  name: string,
-  description: string,
-  weight: string,
-  price: number,
-  image?: string
+  name,
+  description,
+  weight,
+  price,
+  image
 ) {
   // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
@@ -169,7 +168,7 @@ async function createDessertProduct(
       productCategoryId: category.productCat,
     },
   });
-
+console.log(category)
   if (!existingProduct) {
     await prisma.product.create({
       data: {
@@ -188,23 +187,10 @@ async function createDessertProduct(
   }
 }
 
-async function createFeedback(
-  tableId: number,
-  answers: [number, number, number, string]
-) {
-  // Check if the table exists
-  const existingTable = await prisma.table.findUnique({
-    where: { tableId: tableId },
-  });
-
-  if (!existingTable) {
-    console.log("Table does not exist.");
-    return;
-  }
+async function createFeedback(answers) {
 
   const existingFeedback = await prisma.feedback.findFirst({
     where: {
-      tableId: tableId,
       answerFour: answers[3],
     },
   });
@@ -220,15 +206,14 @@ async function createFeedback(
       answerTwo: answers[1],
       answerThree: answers[2],
       answerFour: answers[3],
-      tableId: tableId,
     },
   });
-  console.log(`Created feedback for table ${tableId}.`);
+  console.log(`Created feedback.`);
 }
 
 
 
-async function createTable(tableNumber: number) {
+async function createTable(tableNumber) {
   const existingTable = await prisma.table.findFirst({
     where: { tableNumber: tableNumber },
   });
@@ -247,7 +232,9 @@ async function createTable(tableNumber: number) {
 
 
 
-async function createOrder(tableId: number, products: { productId: number, quantity: number, orderStatus: string }[]) {
+
+
+async function createOrder(tableId, products) {
   const existingTable = await prisma.table.findUnique({
     where: { tableId: tableId },
   });
@@ -264,6 +251,7 @@ async function createOrder(tableId: number, products: { productId: number, quant
       productId: productId,
       orderStatus: orderStatus,
       quantity: quantity,
+      createdAt: new Date(),
     };
   });
 
@@ -277,7 +265,71 @@ async function createOrder(tableId: number, products: { productId: number, quant
 
 
 
-async function createAdmin(username: string, email: string, password: string) {
+
+// async function createOrderTwo(tableId, products) {
+//   // Find the table by its ID
+//   const table = await prisma.table.findUnique({
+//     where: { tableId: tableId },
+//     include: { orders: true }, // Include orders related to this table
+//   });
+
+//   if (!table) {
+//     console.log(`Table ${tableId} does not exist.`);
+//     return;
+//   }
+
+//   // Create a new order
+//   const order = await prisma.order.create({
+//     data: {
+//       tableId: tableId,
+//       orderStatus: "pending",
+//       totalPrice: 0,
+//     },
+//   });
+
+//   // Calculate the total price of the order and update the order's total price
+//   let totalPrice = 0;
+//   for (const { productId, quantity } of products) {
+//     const product = await prisma.product.findFirst({
+//       where: { productId: productId },
+//     });
+
+//     if (!product) {
+//       console.log(`Product with ID ${productId} not found.`);
+//       continue;
+//     }
+
+//     totalPrice += product.price * quantity;
+
+//     // Create an order detail for each product in the order
+//     await prisma.orderDetail.create({
+//       data: {
+//         orderId: order.orderId,
+//         productId: productId,
+//         quantity: quantity,
+//       },
+//     });
+//   }
+
+//   // Update the order's total price
+//   await prisma.order.update({
+//     where: { orderId: order.orderId },
+//     data: { totalPrice: totalPrice },
+//   });
+
+//   console.log(`Order created for Table ${tableId}. Total Price: $${totalPrice}`);
+// }
+
+
+
+
+
+
+
+
+
+
+async function createAdmin(username, email, password) {
   const existingAdmin = await prisma.user.findFirst({
     where: {
       username: username,
@@ -303,7 +355,7 @@ async function createAdmin(username: string, email: string, password: string) {
 
 
 
-async function createManager(username: string, email: string, password: string) {
+async function createManager(username, email, password) {
   const existingManager = await prisma.user.findFirst({
     where: {
       username: username,
@@ -339,13 +391,15 @@ async function main() {
     'Coca Cola',
     'Coca-Cola, a timeless classic, delights anyone with its iconic blend of refreshing carbonation and invigorating sweetness. With its crisp and satisfying taste, Coca-Cola provides an unmatched experience that quenches thirst and brings moments of joy to any occasion.',
     '355ml',
-    400
+    400,
+    "https://res.cloudinary.com/da8jnpdza/image/upload/v1715171063/coca_cola_bv0buf.png"
   );
   await createBeverageProduct(
     'Dr Pepper',
     'Dr Pepper, a unique fusion of 23 flavors, offers a tantalizing taste experience unlike any other soft drink. Its rich, bold flavor profile, featuring hints of cherry, vanilla, and caramel, promises to captivate taste buds and leave customers craving more with every sip.',
     '355ml',
-    400
+    400,
+    "https://res.cloudinary.com/da8jnpdza/image/upload/v1715171064/dr_pepper_mda2lg.png"
   );
   await createBeverageProduct(
     'Fanta',
@@ -575,9 +629,15 @@ async function main() {
     { productId: 4, quantity: 2, orderStatus: 'pending' },
   ]);
 
+  // await createOrderTwo(1, [
+  //   { productId: 1, quantity: 2 },
+  //   { productId: 2, quantity: 3 },
+  // ]);
+  
 
 
-  await createFeedback(1, [5, 4, 3, "This is the best place I have been to."]);
+
+  await createFeedback([5, 4, 3, "This is the best place I have been to."]);
 
 
   
@@ -596,6 +656,8 @@ main()
     process.exit(1);
   });
 
-
+  
 //npx prisma db seed               - to seed(update) the database (this file)
+//node seed.js                     - seed.js
 //npx migrate dev --name somename  - to create a migration (update schema.prisma file)
+//npx prisma migrate dev --name somename

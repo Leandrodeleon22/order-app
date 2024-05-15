@@ -20,14 +20,18 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/app/providers.ts"  ],
+    "**/*.tsx",
+    "src/app/providers.ts",
+    "prisma/seed.js",
+    "src/lib/prisma.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
