@@ -28,7 +28,6 @@ const Product = ({
   const formattedUrl = parts.slice(0, parts.length - 1).join("/") + "/";
   const shortDescription = description.slice(0, 78) + "...";
   const productPrice = formattedPrice(price);
-  console.log(parts);
 
   const imageLoader = ({ src, width, quality }) => {
     // return `https://example.com/${src}?w=${width}&q=${quality || 75}`
