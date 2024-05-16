@@ -43,7 +43,7 @@ const Feedback = () => {
 
   return (
     <main className="flex justify-center mt-10 flex-col items-center">
-      <section className="flex flex-col items-center w-[40rem]">
+      <section className="flex flex-col items-center w-[40rem] min-h-screen">
         <h1 className="text-[2rem] font-semibold">Your feedback is highly appreciated</h1>
         <div className="bg-white mt-4 w-full flex flex-col justify-center items-center py-2 rounded-2xl shadow-md">
           <p className="text-[1.5rem] font-medium">Was our food delicious?</p>

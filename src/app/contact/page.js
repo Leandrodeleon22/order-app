@@ -39,7 +39,7 @@ export default function Contact() {
   return (
     <>
       <div className="flex justify-between mx-4">
-        <div className="w-1/2 p-4">
+        <div className="w-1/2 p-4 flex flex-col min-h-screen"> {/* Added flex flex-col min-h-screen */}
           <h2 className="text-2xl font-bold">Contact Information:</h2>
           <br />
           <iframe
@@ -93,7 +93,7 @@ export default function Contact() {
           </form>
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
