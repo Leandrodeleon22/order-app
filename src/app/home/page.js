@@ -13,9 +13,7 @@ export default async function Home() {
   return (
     <ProductsWrapper>
       <div
-        className=" grid grid-cols-3 gap-4 justify-between
-      "
-      >
+        className=" grid grid-cols-3 gap-4 justify-between flex flex-col min-h-screen"> {/* Added flex flex-col min-h-screen */}
         {allProducts.map((product) => {
           const {
             productId,
