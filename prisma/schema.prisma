@@ -27,7 +27,6 @@ model Product {
   weight             String
   description        String?
   price              Int
-  note               String?
 
   // Define the relationship with ProductCategory
   productCategory    ProductCategory @relation(fields: [productCategoryId], references: [productCat])
@@ -66,6 +65,7 @@ model Order {
   orderStatus        String
   quantity           Int
   createdAt          DateTime    @default(now())
+  note               String?
 
   // Define the relationship with Table
   table              Table       @relation(fields: [tableId], references: [tableId])

@@ -52,7 +52,6 @@ async function createBeverageProduct(
         weight: weight,
         price: price,
         image: null,
-        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -94,7 +93,6 @@ async function createBurgerProduct(
         weight: weight,
         price: price,
         image: null,
-        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -136,7 +134,6 @@ async function createPizzaProduct(
         weight: weight,
         price: price,
         image: null,
-        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -178,7 +175,6 @@ console.log(category)
         weight: weight,
         price: price,
         image: null,
-        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -252,6 +248,7 @@ async function createOrder(tableId, products) {
       orderStatus: orderStatus,
       quantity: quantity,
       createdAt: new Date(),
+      note: null,
     };
   });
 
@@ -353,7 +350,7 @@ async function createAdmin(username, email, password) {
 }
 
 
-async function createWaiter(username: string, email: string, password: string) {
+async function createWaiter(username, email, password) {
   // Check if an admin user with the same name already exists
   const existingWaiter = await prisma.user.findFirst({
     where: {
@@ -378,12 +375,6 @@ async function createWaiter(username: string, email: string, password: string) {
   }
 }
 
-async function createManager(
-  username: string,
-  email: string,
-  password: string
-) {
-  // Check if an admin user with the same name already exists
 
 
 
@@ -411,7 +402,7 @@ async function createManager(username, email, password) {
   }
 }
 
-async function createTableNumber(tableNumber: any) {
+async function createTableNumber(tableNumber) {
   await prisma.table.create({
     data: {
       tableNumber: tableNumber,
