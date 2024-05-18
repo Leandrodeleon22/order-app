@@ -51,7 +51,7 @@ async function createBeverageProduct(
         productCategoryId: category.productCat,
         weight: weight,
         price: price,
-        image: null,
+        image: image,
       },
     });
     console.log(`Created product: ${name}`);
@@ -92,7 +92,7 @@ async function createBurgerProduct(
         productCategoryId: category.productCat,
         weight: weight,
         price: price,
-        image: null,
+        image: image,
       },
     });
     console.log(`Created product: ${name}`);
@@ -133,7 +133,7 @@ async function createPizzaProduct(
         productCategoryId: category.productCat,
         weight: weight,
         price: price,
-        image: null,
+        image: image,
       },
     });
     console.log(`Created product: ${name}`);
@@ -174,7 +174,7 @@ console.log(category)
         productCategoryId: category.productCat,
         weight: weight,
         price: price,
-        image: null,
+        image: image,
       },
     });
     console.log(`Created product: ${name}`);
