@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-export function protectedPage() {
+export function protectedPage(tableNum) {
   const tableNumber = true;
 
   if (tableNumber) {

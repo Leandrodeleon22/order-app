@@ -1,13 +1,25 @@
 "use client";
 import React, { useState } from "react";
 import { navigate } from "../lib/actions";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const ChooseTable = ({ allTables }) => {
   const [selectedOption, setSelectedOption] = useState("");
-
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const searchParams = useSearchParams();
   // Function to handle change in dropdown selection
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
+
+    // const updatedParams = new URLSearchParams(searchParams);
+    // if (event.target.value) {
+    //   updatedParams.set("q", event.target.value);
+    // } else {
+    //   updatedParams.delete("q");
+    // }
+
+    // router.replace(`${pathname}?${updatedParams.toString()}`);
   };
 
   return (

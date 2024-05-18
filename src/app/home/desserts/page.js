@@ -7,9 +7,9 @@ import ProductsWrapper from "../../../components/ProductsWrapper";
 
 import React from "react";
 
-const Desserts = async () => {
+const Desserts = async ({ searchParams }) => {
   const allPizzas = await fetchAllDesserts();
-
+  const params = searchParams;
   return (
     <ProductsWrapper>
       <div
@@ -29,6 +29,8 @@ const Desserts = async () => {
           } = product;
           return (
             <Product
+              productId={productId}
+              tableNumber={params.table}
               key={productId}
               productCategoryId={productCategoryId}
               image={image}

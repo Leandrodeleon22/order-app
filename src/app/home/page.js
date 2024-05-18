@@ -5,15 +5,23 @@ import { fetchAllProduct } from "../../lib/data";
 // import Footer from "../../components/Footer";
 import Product from "../../components/Product";
 import ProductsWrapper from "../../components/ProductsWrapper";
-// import { products } from "../../mock-data/placeholder-data";
+import { products } from "../../mock-data/placeholder-data";
+import { addOrder } from "../../lib/actions";
+import { Suspense } from "react";
 
-export default async function Home() {
+export default async function Home({ searchParams }) {
+  // console.log(searchParams);
+
   const allProducts = await fetchAllProduct();
+  // const order = await addOrder();
   // console.log(allProducts);
+  const params = searchParams;
+  // console.log(params.table);
   return (
     <ProductsWrapper>
-      <div
-        className=" grid grid-cols-3 gap-4 justify-between flex flex-col min-h-screen"> {/* Added flex flex-col min-h-screen */}
+      <div className=" grid grid-cols-3 gap-4 justify-between flex flex-col min-h-screen">
+        {" "}
+        {/* Added flex flex-col min-h-screen */}
         {allProducts.map((product) => {
           const {
             productId,
@@ -26,7 +34,12 @@ export default async function Home() {
             note,
           } = product;
           return (
+            // <Suspense key={productId} fallback={<h1>Loading from suspense</h1>}>
             <Product
+              productId={productId}
+              // key={productId}
+              // order={order}
+              tableNumber={params.table}
               key={productId}
               productCategoryId={productCategoryId}
               image={image}
@@ -36,6 +49,7 @@ export default async function Home() {
               price={price}
               note={note}
             />
+            // </Suspense>
           );
         })}
         {/* <Product />

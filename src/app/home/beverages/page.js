@@ -7,8 +7,9 @@ import ProductsWrapper from "../../../components/ProductsWrapper";
 
 import React from "react";
 
-const Beverages = async () => {
+const Beverages = async ({ searchParams }) => {
   const allBeverages = await fetchAllBeverages();
+  const params = searchParams;
 
   return (
     <ProductsWrapper>
@@ -29,6 +30,7 @@ const Beverages = async () => {
           } = product;
           return (
             <Product
+              productId={productId}
               key={productId}
               productCategoryId={productCategoryId}
               image={image}
@@ -37,6 +39,7 @@ const Beverages = async () => {
               description={description}
               price={price}
               note={note}
+              tableNumber={params.table}
             />
           );
         })}
