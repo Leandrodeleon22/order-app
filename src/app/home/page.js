@@ -1,6 +1,4 @@
 import Footer from "../../components/Footer";
-// import Product from "@/components/Product";
-// import ProductsWrapper from "@/components/ProductsWrapper";
 import { fetchAllProduct } from "../../lib/data";
 // import { products } from "@/mock-data/placeholder-data";
 
@@ -21,10 +19,9 @@ export default async function Home({ searchParams }) {
   // console.log(params.table);
   return (
     <ProductsWrapper>
-      <div
-        className=" grid grid-cols-3 gap-4 justify-between
-      "
-      >
+      <div className=" grid grid-cols-3 gap-4 justify-between flex flex-col min-h-screen">
+        {" "}
+        {/* Added flex flex-col min-h-screen */}
         {allProducts.map((product) => {
           const {
             productId,

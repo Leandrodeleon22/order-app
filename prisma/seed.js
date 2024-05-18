@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function createCategoryIfNotExists(categoryName: string) {
+async function createCategoryIfNotExists(categoryName) {
   const existingCategory = await prisma.productCategory.findFirst({
     where: { name: categoryName },
   });
@@ -19,13 +19,7 @@ async function createCategoryIfNotExists(categoryName: string) {
   }
 }
 
-async function createBeverageProduct(
-  name: string,
-  description: string,
-  weight: string,
-  price: number,
-  image?: string
-) {
+async function createBeverageProduct(name, description, weight, price, image) {
   // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
     where: { name: "beverages" },
@@ -52,7 +46,6 @@ async function createBeverageProduct(
         weight: weight,
         price: price,
         image: null,
-        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -61,13 +54,7 @@ async function createBeverageProduct(
   }
 }
 
-async function createBurgerProduct(
-  name: string,
-  description: string,
-  weight: string,
-  price: number,
-  image?: string
-) {
+async function createBurgerProduct(name, description, weight, price, image) {
   // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
     where: { name: "burgers" },
@@ -94,7 +81,6 @@ async function createBurgerProduct(
         weight: weight,
         price: price,
         image: null,
-        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -103,13 +89,7 @@ async function createBurgerProduct(
   }
 }
 
-async function createPizzaProduct(
-  name: string,
-  description: string,
-  weight: string,
-  price: number,
-  image?: string
-) {
+async function createPizzaProduct(name, description, weight, price, image) {
   // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
     where: { name: "pizzas" },
@@ -136,7 +116,6 @@ async function createPizzaProduct(
         weight: weight,
         price: price,
         image: null,
-        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -145,13 +124,7 @@ async function createPizzaProduct(
   }
 }
 
-async function createDessertProduct(
-  name: string,
-  description: string,
-  weight: string,
-  price: number,
-  image?: string
-) {
+async function createDessertProduct(name, description, weight, price, image) {
   // Find the product category for beverages
   const category = await prisma.productCategory.findUnique({
     where: { name: "desserts" },
@@ -168,7 +141,7 @@ async function createDessertProduct(
       productCategoryId: category.productCat,
     },
   });
-
+  console.log(category);
   if (!existingProduct) {
     await prisma.product.create({
       data: {
@@ -178,7 +151,6 @@ async function createDessertProduct(
         weight: weight,
         price: price,
         image: null,
-        note: null,
       },
     });
     console.log(`Created product: ${name}`);
@@ -187,23 +159,9 @@ async function createDessertProduct(
   }
 }
 
-async function createFeedback(
-  tableId: number,
-  answers: [number, number, number, string]
-) {
-  // Check if the table exists
-  const existingTable = await prisma.table.findUnique({
-    where: { tableId: tableId },
-  });
-
-  if (!existingTable) {
-    console.log("Table does not exist.");
-    return;
-  }
-
+async function createFeedback(answers) {
   const existingFeedback = await prisma.feedback.findFirst({
     where: {
-      tableId: tableId,
       answerFour: answers[3],
     },
   });
@@ -219,13 +177,12 @@ async function createFeedback(
       answerTwo: answers[1],
       answerThree: answers[2],
       answerFour: answers[3],
-      tableId: tableId,
     },
   });
-  console.log(`Created feedback for table ${tableId}.`);
+  console.log(`Created feedback.`);
 }
 
-async function createTable(tableNumber: number) {
+async function createTable(tableNumber) {
   const existingTable = await prisma.table.findFirst({
     where: { tableNumber: tableNumber },
   });
@@ -242,10 +199,7 @@ async function createTable(tableNumber: number) {
   }
 }
 
-async function createOrder(
-  tableId: number,
-  products: { productId: number; quantity: number; orderStatus: string }[]
-) {
+async function createOrder(tableId, products) {
   const existingTable = await prisma.table.findUnique({
     where: { tableId: tableId },
   });
@@ -262,6 +216,8 @@ async function createOrder(
       productId: productId,
       orderStatus: orderStatus,
       quantity: quantity,
+      createdAt: new Date(),
+      note: null,
     };
   });
 
@@ -272,7 +228,61 @@ async function createOrder(
   console.log(`Created order for table ${tableId}.`);
 }
 
-async function createAdmin(username: string, email: string, password: string) {
+// async function createOrderTwo(tableId, products) {
+//   // Find the table by its ID
+//   const table = await prisma.table.findUnique({
+//     where: { tableId: tableId },
+//     include: { orders: true }, // Include orders related to this table
+//   });
+
+//   if (!table) {
+//     console.log(`Table ${tableId} does not exist.`);
+//     return;
+//   }
+
+//   // Create a new order
+//   const order = await prisma.order.create({
+//     data: {
+//       tableId: tableId,
+//       orderStatus: "pending",
+//       totalPrice: 0,
+//     },
+//   });
+
+//   // Calculate the total price of the order and update the order's total price
+//   let totalPrice = 0;
+//   for (const { productId, quantity } of products) {
+//     const product = await prisma.product.findFirst({
+//       where: { productId: productId },
+//     });
+
+//     if (!product) {
+//       console.log(`Product with ID ${productId} not found.`);
+//       continue;
+//     }
+
+//     totalPrice += product.price * quantity;
+
+//     // Create an order detail for each product in the order
+//     await prisma.orderDetail.create({
+//       data: {
+//         orderId: order.orderId,
+//         productId: productId,
+//         quantity: quantity,
+//       },
+//     });
+//   }
+
+//   // Update the order's total price
+//   await prisma.order.update({
+//     where: { orderId: order.orderId },
+//     data: { totalPrice: totalPrice },
+//   });
+
+//   console.log(`Order created for Table ${tableId}. Total Price: $${totalPrice}`);
+// }
+
+async function createAdmin(username, email, password) {
   const existingAdmin = await prisma.user.findFirst({
     where: {
       username: username,
@@ -295,7 +305,7 @@ async function createAdmin(username: string, email: string, password: string) {
   }
 }
 
-async function createWaiter(username: string, email: string, password: string) {
+async function createWaiter(username, email, password) {
   // Check if an admin user with the same name already exists
   const existingWaiter = await prisma.user.findFirst({
     where: {
@@ -320,20 +330,17 @@ async function createWaiter(username: string, email: string, password: string) {
   }
 }
 
-async function createManager(
-  username: string,
-  email: string,
-  password: string
-) {
-  // Check if an admin user with the same name already exists
+async function createManager(username, email, password) {
+  const existingManager = await prisma.user.findFirst({
+    where: {
+      username: username,
+      role: "MANAGER",
+    },
+  });
 
-  async function createManager(
-    username: string,
-    email: string,
-    password: string
-  ) {
-    const existingManager = await prisma.user.findFirst({
-      where: {
+  if (!existingManager) {
+    await prisma.user.create({
+      data: {
         username: username,
         role: "MANAGER",
       },
@@ -355,7 +362,7 @@ async function createManager(
   }
 }
 
-async function createTableNumber(tableNumber: any) {
+async function createTableNumber(tableNumber) {
   await prisma.table.create({
     data: {
       tableNumber: tableNumber,
@@ -391,18 +398,6 @@ async function main() {
     "355ml",
     400,
     "https://res.cloudinary.com/da8jnpdza/image/upload/v1715171064/dr_pepper_mda2lg.png"
-  );
-  await createBeverageProduct(
-    "Fanta",
-    "Fanta, with its vibrant colors and refreshing fruit flavors, is a delightful choice for those seeking a burst of excitement in every sip. Its fizzy, fruity taste transports customers to a world of fun and flavor, making it the perfect companion for any occasion.",
-    "355ml",
-    400
-  );
-  await createBeverageProduct(
-    "Canada Dry",
-    "Canada Dry, with its crisp and invigorating ginger flavor, offers a refreshing escape from the ordinary. Perfectly balanced and effervescent, it`s the ideal beverage choice for those seeking a refreshing pick-me-up with a hint of sophistication.",
-    "355ml",
-    400
   );
   await createBeverageProduct(
     "Pepsi",
@@ -617,9 +612,12 @@ async function main() {
     { productId: 4, quantity: 2, orderStatus: "pending" },
   ]);
 
-  await createManager("manager1", "manager1@gmail.com", "password");
+  // await createOrderTwo(1, [
+  //   { productId: 1, quantity: 2 },
+  //   { productId: 2, quantity: 3 },
+  // ]);
 
-  await createFeedback(1, [5, 4, 3, "This is the best place I have been to."]);
+  await createFeedback([5, 4, 3, "This is the best place I have been to."]);
 
   await createManager("manager1", "manager1@gmail.com", "password");
 
@@ -636,4 +634,6 @@ main().catch((e) => {
 });
 
 //npx prisma db seed               - to seed(update) the database (this file)
+//node seed.js                     - seed.js
 //npx migrate dev --name somename  - to create a migration (update schema.prisma file)
+//npx prisma migrate dev --name somename

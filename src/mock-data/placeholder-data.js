@@ -15,7 +15,7 @@ const tables = [
   { id: 5, tableNumber: 5 },
 ];
 
-const productCategory = [
+export const productCategory = [
   {
     id: 1,
     name: "All",
@@ -50,10 +50,3 @@ const products = [
     note: "",
   },
 ];
-
-module.exports = {
-  admin,
-  tables,
-  products,
-  productCategory,
-};

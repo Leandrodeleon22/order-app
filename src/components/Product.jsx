@@ -27,7 +27,8 @@ const Product = ({
   order,
   note,
 }) => {
-  const parts = image.split("/");
+  // const parts = image.split("/");
+  const parts = image ? image.split("/") : []; //replaced - Andrew
   const fileName = parts[parts.length - 1];
 
   const formattedUrl = parts.slice(0, parts.length - 1).join("/") + "/";
@@ -80,19 +81,19 @@ const Product = ({
                     name === "Dr Pepper"
                       ? 85
                       : name === "Fanta"
-                      ? 85
-                      : name === "Canada Dry"
-                      ? 85
-                      : 150
+                        ? 85
+                        : name === "Canada Dry"
+                          ? 85
+                          : 150
                   }
                   height={
                     name === "Dr Pepper"
                       ? 85
                       : name === "Fanta"
-                      ? 85
-                      : name === "Canada Dry"
-                      ? 85
-                      : 150
+                        ? 85
+                        : name === "Canada Dry"
+                          ? 85
+                          : 150
                   }
                   alt={name}
                 />
@@ -127,10 +128,10 @@ const Product = ({
                     name === "Dr Pepper"
                       ? 200
                       : name === "Fanta"
-                      ? 200
-                      : name === "Canada Dry"
-                      ? 200
-                      : 400
+                        ? 200
+                        : name === "Canada Dry"
+                          ? 200
+                          : 400
                   }
                   height={400}
                   alt={name}
