@@ -45,7 +45,7 @@ async function createBeverageProduct(name, description, weight, price, image) {
         productCategoryId: category.productCat,
         weight: weight,
         price: price,
-        image: null,
+        image: image,
       },
     });
     console.log(`Created product: ${name}`);
@@ -342,23 +342,14 @@ async function createManager(username, email, password) {
     await prisma.user.create({
       data: {
         username: username,
+        email: email,
+        password: password,
         role: "MANAGER",
       },
     });
-
-    if (!existingManager) {
-      await prisma.user.create({
-        data: {
-          username: username,
-          email: email,
-          password: password,
-          role: "MANAGER",
-        },
-      });
-      console.log(`Created manager user: ${username}`);
-    } else {
-      console.log(`Manager user '${username}' already exists.`);
-    }
+    console.log(`Created manager user: ${username}`);
+  } else {
+    console.log(`Manager user '${username}' already exists.`);
   }
 }
 
