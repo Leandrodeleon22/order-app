@@ -2,7 +2,7 @@
 
 Welcome to the Order App! This application provides a seamless dining experience for both customers and restaurant staff.🍕 With features like QR code scanning, menu browsing, order customization, and real-time order tracking, you can enjoy your meal with ease.
 
-### Tools Used
+### Tools Used:
 - Node.js
 - Next.js
 - PostgreSQL
