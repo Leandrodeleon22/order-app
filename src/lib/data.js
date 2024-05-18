@@ -13,7 +13,7 @@ export const fetchAllProduct = async () => {
 
     return data;
   } catch (error) {
-    console.log("error");
+    console.log("error", error);
   }
 };
 
