@@ -369,7 +369,7 @@ async function createAdmin(username: string, email: string, password: string) {
 
 
 
-async function createManager(username: string, email: string, password: string) {
+async function createManager(username, email, password) {
   const existingManager = await prisma.user.findFirst({
     where: {
       username: username,
