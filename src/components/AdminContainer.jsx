@@ -1,13 +1,23 @@
-import TableOrder from "../../components/TableOrder";
-import { getAllOrders, getAllTables } from "../../lib/data";
+"use client";
 
-export default async function Admin() {
-  const allTables = await getAllTables();
+import React from "react";
+
+import TableOrder from "../components/TableOrder";
+import { useQuery } from "@tanstack/react-query";
+import { getAllTables } from "../lib/data";
+
+const AdminContainer = () => {
+  const { data: allTables, isLoading } = useQuery({
+    queryKey: ["tables"],
+    queryFn: () => getAllTables(),
+  });
+
+  if (isLoading) return <h1>loading</h1>;
 
   return (
-    <main className=" flex justify-center flex-col items-center">
+    <main className=" flex justify-center bg-green-400 flex-col items-center">
       {allTables.map((table) => {
-        return <TableOrder key={table.tableId} tableNum={table.tableNumber} />;
+        return <TableOrder key={table.tableId} tableNum={table.tableId} />;
       })}
 
       {/* <section className="bg-slate-100 w-4/5 my-7 p-6 rounded-md">
@@ -64,4 +74,6 @@ export default async function Admin() {
       </section> */}
     </main>
   );
-}
+};
+
+export default AdminContainer;

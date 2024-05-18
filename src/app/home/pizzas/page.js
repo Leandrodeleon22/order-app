@@ -7,9 +7,9 @@ import ProductsWrapper from "../../../components/ProductsWrapper";
 
 import React from "react";
 
-const Pizzas = async () => {
+const Pizzas = async ({ searchParams }) => {
   const allPizzas = await fetchAllPizza();
-
+  const params = searchParams;
   return (
     <ProductsWrapper>
       <div
@@ -19,6 +19,7 @@ const Pizzas = async () => {
         {allPizzas.map((product) => {
           const {
             productId,
+
             productCategoryId,
             image,
             name,
@@ -30,6 +31,8 @@ const Pizzas = async () => {
           return (
             <Product
               key={productId}
+              productId={productId}
+              tableNumber={params.table}
               productCategoryId={productCategoryId}
               image={image}
               name={name}

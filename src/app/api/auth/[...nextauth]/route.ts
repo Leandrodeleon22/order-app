@@ -1,6 +1,6 @@
-import NextAuth, { type NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '../../../../lib/prisma';
+import NextAuth, { type NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { prisma } from "../../../../lib/prisma";
 
 const comparePasswords = (plainPassword, Password) => {
   return plainPassword === Password;
@@ -8,18 +8,18 @@ const comparePasswords = (plainPassword, Password) => {
 
 export const authOptions: NextAuthOptions = {
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
-      name: 'email',
+      name: "email",
       credentials: {
         email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'hello@example.com',
+          label: "Email",
+          type: "email",
+          placeholder: "hello@example.com",
         },
-        password: { label: 'Password', type: 'password' },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials.email || !credentials.password) {
@@ -32,38 +32,42 @@ export const authOptions: NextAuthOptions = {
         if (!user) {
           return null;
         }
-        const isPasswordValid = comparePasswords(credentials.password, user.password);
+        const isPasswordValid = comparePasswords(
+          credentials.password,
+          user.password
+        );
         if (!isPasswordValid) {
           return null;
         }
-        return { id: user.userId,
+        return {
+          id: user.userId,
           email: user.email,
           name: user.username,
           role: user.role,
         };
-      }
+      },
     }),
   ],
   callbacks: {
-    session: ({session, token}) => {
-      console.log({'Session Callback': session, token});
+    session: ({ session, token }) => {
+      // console.log({'Session Callback': session, token});
       return {
         ...session,
         user: {
           ...session.user,
           id: token.id,
-          role: token.role
-        }
+          role: token.role,
+        },
       };
     },
     jwt: ({ token, user }) => {
-      console.log({'JWT Callback': token, user});
+      // console.log({'JWT Callback': token, user});
       if (user) {
         const u = user as unknown as any;
         return {
           ...token,
           id: u.userId,
-          role: u.role
+          role: u.role,
         };
       }
       return token;

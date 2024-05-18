@@ -1,8 +1,10 @@
 import ChooseTable from "../components/ChooseTable";
-import { getAllTables, getSingleTableNumber } from "../lib/data";
+
+import { getAllTables } from "../lib/data";
 
 export default async function Home() {
   const allTables = await getAllTables();
+
   // const testTable = await getSingleTableNumber(parseInt("1"));
   // console.log(testTable);
   // console.log(allTables);

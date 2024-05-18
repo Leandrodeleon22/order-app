@@ -3,6 +3,9 @@ import "./globals.css";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 // import { Providers } from "./providers";
+import { headers } from "next/headers";
+// import { orderContext } from "../lib/orderContext";
+import { OrderProvider } from "../lib/orderContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,12 +15,25 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const headersList = headers();
+  const header_url = headersList.get("x-url") || "";
+  console.log(header_url);
+  const tableNumStr = header_url[header_url.length - 1];
+  console.log(tableNumStr);
+
+  const tableNum = parseInt(tableNumStr);
+  const urlString = header_url.slice(0, -1);
+  // console.log(tableNum);
+  // console.log(urlString);
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NavBar />
-        {children}
-        {/* <Footer /> */}
+        <OrderProvider>
+          {/* <NavBar /> */}
+          {tableNum ? <NavBar /> : ""}
+          {children}
+          {/* <Footer /> */}
+        </OrderProvider>
       </body>
     </html>
   );

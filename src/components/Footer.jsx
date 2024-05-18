@@ -1,8 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-export default async function Footer() {
-
+export default function Footer() {
   return (
     <footer className=" w-full bg-gray-900 text-white py-2 text-center">
       <div className="inline">
@@ -12,7 +11,7 @@ export default async function Footer() {
       </div>
       <div className="inline">
         <Link href="/dashboard" className="hover:underline ml-10">
-              Staff
+          Staff
         </Link>
       </div>
     </footer>

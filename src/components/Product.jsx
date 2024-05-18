@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { products } from "../mock-data/placeholder-data";
@@ -8,9 +8,14 @@ import Counter from "./Counter";
 // import { formattedPrice } from "@/utils/utils";
 import { formattedPrice } from "../utils/utils";
 import { IoClose } from "react-icons/io5";
+import { useSearchParams } from "next/navigation";
+import { addOrder } from "../lib/actions";
+import { useRouter } from "next/navigation";
+import AddOrderCounter from "../components/AddOrderCounter";
+import { revalidatePath } from "next/cache";
 
 // import { Cross2Icon } from "@radix-ui/react-icons";
-
+export const revalidate = 1;
 const Product = ({
   productId,
   productCategoryId,
@@ -19,6 +24,7 @@ const Product = ({
   weight,
   description,
   price,
+  order,
   note,
 }) => {
   const parts = image.split("/");
@@ -27,6 +33,12 @@ const Product = ({
   const formattedUrl = parts.slice(0, parts.length - 1).join("/") + "/";
   const shortDescription = description.slice(0, 78) + "...";
   const productPrice = formattedPrice(price);
+  const tableParams = useSearchParams();
+  const table = tableParams.get("table");
+  const tableNum = parseInt(table);
+  const router = useRouter();
+  const [customerNote, setNote] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
   const imageLoader = ({ src, width, quality }) => {
     // return `https://example.com/${src}?w=${width}&q=${quality || 75}`
@@ -35,6 +47,22 @@ const Product = ({
     // }`;
     return `${formattedUrl}${src}?w=${width}&q=${quality || 75}`;
   };
+
+  const handleChangeNote = (e) => {
+    setNote(e.target.value);
+  };
+
+  const handleIncrementOrderQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleIDecrementOrderQuantity = () => {
+    if (quantity <= 0) {
+      return;
+    }
+    setQuantity(quantity - 1);
+  };
+  console.log(customerNote);
 
   return (
     <div className="flex flex-col justify-between bg-slate-100 mr-3 w-full p-4 rounded-md shadow-lg transform transition-transform hover:scale-105">
@@ -136,7 +164,12 @@ const Product = ({
 
                 <div className="flex justify-between mb-4">
                   <span className="text-[1.2rem] font-bold">Quantity</span>
-                  <Counter />
+
+                  <AddOrderCounter
+                    quantity={quantity}
+                    incrementQuantity={handleIncrementOrderQuantity}
+                    decrementQuantity={handleIDecrementOrderQuantity}
+                  />
                 </div>
 
                 <div>
@@ -148,13 +181,28 @@ const Product = ({
                     cols="40"
                     className="bg-slate-100 w-full p-2 rounded-md"
                     placeholder="Note"
+                    onChange={handleChangeNote}
+                    value={customerNote}
                   ></textarea>
                 </div>
 
                 <div className="mt-[25px] flex justify-end">
-                  <button className="bg-red-500 hover:bg-red-600 text-white w-full inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none ">
-                    ADD TO ORDER
-                  </button>
+                  <Dialog.DialogClose className="w-full">
+                    <button
+                      className="bg-red-500 hover:bg-red-600 text-white w-full inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none "
+                      onClick={async () => {
+                        await addOrder({
+                          productId,
+                          tableNum,
+                          customerNote,
+                          quantity,
+                        });
+                        router.refresh();
+                      }}
+                    >
+                      ADD TO ORDER
+                    </button>
+                  </Dialog.DialogClose>
                 </div>
               </div>
               {/* <label
@@ -196,8 +244,17 @@ const Product = ({
       </Dialog.Root>
       <div className="mt-4 flex justify-between">
         <span className="font-semibold">Price: CAD ${productPrice}</span>
-        <button className="bg-gray-200 px-2 rounded-[5px]">
-          <span className="font-bold text-orange-600">ADD</span>
+        {/* <input type="hidden" name="table" value={table} /> */}
+
+        <button
+          type="submit"
+          className="bg-gray-200 px-2 rounded-[5px] text-red-500 hover:bg-red-500 font-bold  hover:text-white"
+          onClick={async () => {
+            await addOrder({ productId, tableNum });
+            router.refresh();
+          }}
+        >
+          ADD
         </button>
       </div>
     </div>

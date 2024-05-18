@@ -3,17 +3,18 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
-import { decrementQuantity, incrementQuantity } from "../lib/actions";
-import { useRouter } from "next/navigation";
-const Counter = ({ quantity, tableId, orderId }) => {
-  const router = useRouter();
+
+const AddOrderCounter = ({
+  quantity,
+  incrementQuantity,
+  decrementQuantity,
+}) => {
   return (
     <div className="flex">
       <button
         className="bg-gray-200 px-2 rounded-[5px]"
-        onClick={async () => {
-          await decrementQuantity({ quantity, tableId, orderId });
-          router.refresh();
+        onClick={() => {
+          decrementQuantity();
         }}
       >
         <FaMinus />
@@ -23,9 +24,8 @@ const Counter = ({ quantity, tableId, orderId }) => {
 
       <button
         className="bg-gray-200 px-2 rounded-[5px]"
-        onClick={async () => {
-          await incrementQuantity({ quantity, tableId, orderId });
-          router.refresh();
+        onClick={() => {
+          incrementQuantity();
         }}
       >
         <FaPlus />
@@ -34,4 +34,4 @@ const Counter = ({ quantity, tableId, orderId }) => {
   );
 };
 
-export default Counter;
+export default AddOrderCounter;

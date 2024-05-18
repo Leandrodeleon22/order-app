@@ -1,24 +1,48 @@
-import Footer from "../../components/Footer";
+"use client";
+
+// import Footer from "../../components/Footer";
 // import Product from "@/components/Product";
 // import ProductsWrapper from "@/components/ProductsWrapper";
-import { fetchAllProduct } from "../../lib/data";
+
+import { fetchAllProduct } from "../lib/data";
+import LoadingClient from "./LoadingClient";
 // import { products } from "@/mock-data/placeholder-data";
 
 // import Footer from "../../components/Footer";
-import Product from "../../components/Product";
-import ProductsWrapper from "../../components/ProductsWrapper";
-import { products } from "../../mock-data/placeholder-data";
-import { addOrder } from "../../lib/actions";
-import { Suspense } from "react";
+// import Product from "../../components/Product";
+// import Product from "../components/Product";
 
-export default async function Home({ searchParams }) {
-  // console.log(searchParams);
+// import ProductsWrapper from "../../components/ProductsWrapper";
+import ProductsWrapper from "../components/ProductsWrapper";
+import { useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import Product from "./Product";
+// import { products } from "../../mock-data/placeholder-data";
+// import { addOrder } from "../../lib/actions";
+// import { Suspense } from "react";
 
-  const allProducts = await fetchAllProduct();
+export default function Home({ searchParams }) {
+  const tableParams = useSearchParams();
+  const tableNum = tableParams.get("table");
+
+  console.log(tableNum);
   // const order = await addOrder();
   // console.log(allProducts);
-  const params = searchParams;
+  //   const params = searchParams;
+  //   console.log(params);
   // console.log(params.table);
+
+  const {
+    data: allProducts,
+
+    isLoading,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: () => fetchAllProduct(),
+  });
+  if (isLoading) return <LoadingClient />;
+  //   console.log(data);
+
   return (
     <ProductsWrapper>
       <div
@@ -37,12 +61,10 @@ export default async function Home({ searchParams }) {
             note,
           } = product;
           return (
-            // <Suspense key={productId} fallback={<h1>Loading from suspense</h1>}>
             <Product
               productId={productId}
-              // key={productId}
               // order={order}
-              tableNumber={params.table}
+              tableNumber={tableNum}
               key={productId}
               productCategoryId={productCategoryId}
               image={image}
@@ -52,7 +74,6 @@ export default async function Home({ searchParams }) {
               price={price}
               note={note}
             />
-            // </Suspense>
           );
         })}
         {/* <Product />
