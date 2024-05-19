@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-
+import { Skeleton } from "@radix-ui/themes";
 import * as Dialog from "@radix-ui/react-dialog";
 import { products } from "../mock-data/placeholder-data";
 import Image from "next/image";
@@ -74,29 +74,31 @@ const Product = ({
           <div className=" w-full cursor-pointer">
             <div className="flex justify-center mb-2 bg-white rounded-md h-[12rem] ">
               <div className="flex items-center justify-center">
-                <Image
-                  loader={imageLoader}
-                  src={fileName}
-                  width={
-                    name === "Dr Pepper"
-                      ? 85
-                      : name === "Fanta"
+                <Skeleton>
+                  <Image
+                    loader={imageLoader}
+                    src={fileName}
+                    width={
+                      name === "Dr Pepper"
+                        ? 85
+                        : name === "Fanta"
                         ? 85
                         : name === "Canada Dry"
-                          ? 85
-                          : 150
-                  }
-                  height={
-                    name === "Dr Pepper"
-                      ? 85
-                      : name === "Fanta"
+                        ? 85
+                        : 150
+                    }
+                    height={
+                      name === "Dr Pepper"
+                        ? 85
+                        : name === "Fanta"
                         ? 85
                         : name === "Canada Dry"
-                          ? 85
-                          : 150
-                  }
-                  alt={name}
-                />
+                        ? 85
+                        : 150
+                    }
+                    alt={name}
+                  />
+                </Skeleton>
               </div>
             </div>
             <span className="font-bold text-red-500">{name}</span>
@@ -128,10 +130,10 @@ const Product = ({
                     name === "Dr Pepper"
                       ? 200
                       : name === "Fanta"
-                        ? 200
-                        : name === "Canada Dry"
-                          ? 200
-                          : 400
+                      ? 200
+                      : name === "Canada Dry"
+                      ? 200
+                      : 400
                   }
                   height={400}
                   alt={name}
@@ -197,6 +199,7 @@ const Product = ({
                           tableNum,
                           customerNote,
                           quantity,
+                          customerNote,
                         });
                         router.refresh();
                       }}

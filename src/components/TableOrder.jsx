@@ -13,7 +13,7 @@ export default async function TableOrder({ tableNum }) {
   // const orderss = orderStore((state) => state.order);
   // console.log(orderss.orders);
   const allOrders = await getAllOrders(tableNum);
-  console.log(allOrders);
+  // console.log(allOrders);
   const accPrice = allOrders.reduce((accumulator, order) => {
     return accumulator + order.quantity * order.product.price;
   }, 0);
@@ -61,12 +61,10 @@ export default async function TableOrder({ tableNum }) {
                   {order.product.description}
                 </p>
               </div>
-              <div className="flex justify-between  ">
+              <div className="flex justify-between mt-4 ">
                 <div>
                   <h1>Note</h1>
-                  <p className="text-red-500">
-                    I want my burger to be half cooked
-                  </p>
+                  <p className="text-red-500">{order.note || "no message"}</p>
                 </div>
 
                 <div className="flex items-end">
