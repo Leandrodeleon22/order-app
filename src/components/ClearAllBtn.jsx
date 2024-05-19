@@ -9,7 +9,7 @@ const ClearAllBtn = ({ tableNum, name }) => {
     <>
       <button
         className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
-        onClick={async () => {
+        onClick={async() => {
           await deleteAllOrder(tableNum);
           router.refresh();
         }}
