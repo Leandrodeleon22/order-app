@@ -62,7 +62,6 @@ model Order {
   orderId            Int         @id @default(autoincrement())
   tableId            Int         // Foreign key reference to Table
   productId          Int         // Foreign key reference to Product
-  orderStatus        String
   quantity           Int
   createdAt          DateTime    @default(now())
   note               String?
@@ -77,6 +76,8 @@ model Order {
 model Table {
   tableId            Int         @id @default(autoincrement())
   tableNumber        Int
+  isAvailable        Boolean     @default(true)
+  orderStatus        String
 
   // Define the reverse relationship with Order
   orders             Order[]

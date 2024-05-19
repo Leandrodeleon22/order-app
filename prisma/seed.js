@@ -182,7 +182,7 @@ async function createFeedback(answers) {
   console.log(`Created feedback.`);
 }
 
-async function createTable(tableNumber) {
+async function createTable(tableNumber, orderStatus = "pending", isAvailable = true) {
   const existingTable = await prisma.table.findFirst({
     where: { tableNumber: tableNumber },
   });
@@ -191,6 +191,8 @@ async function createTable(tableNumber) {
     await prisma.table.create({
       data: {
         tableNumber: tableNumber,
+        orderStatus: orderStatus,
+        isAvailable: isAvailable,
       },
     });
     console.log(`Created table: ${tableNumber}`);
@@ -210,11 +212,10 @@ async function createOrder(tableId, products) {
   }
 
   const orderDetails = products.map((product) => {
-    const { productId, quantity, orderStatus } = product;
+    const { productId, quantity } = product;
     return {
       tableId: tableId,
       productId: productId,
-      orderStatus: orderStatus,
       quantity: quantity,
       createdAt: new Date(),
       note: null,
@@ -353,13 +354,14 @@ async function createManager(username, email, password) {
   }
 }
 
-async function createTableNumber(tableNumber) {
-  await prisma.table.create({
-    data: {
-      tableNumber: tableNumber,
-    },
-  });
-}
+// async function createTableNumber(tableNumber, orderStatus) {
+//   await prisma.table.create({
+//     data: {
+//       tableNumber: tableNumber,
+//       orderStatus: orderStatus,
+//     },
+//   });
+// }
 
 async function main() {
   await createCategoryIfNotExists("burgers");
@@ -367,13 +369,15 @@ async function main() {
   await createCategoryIfNotExists("desserts");
   await createCategoryIfNotExists("beverages");
 
-  await createTableNumber(1);
-  await createTableNumber(2);
-  await createTableNumber(3);
-  await createTableNumber(4);
-  await createTableNumber(5);
-  await createTableNumber(6);
-  await createTableNumber(7);
+  // await createTableNumber(1, "pending");
+  // await createTableNumber(2, "pending");
+  // await createTableNumber(3, "pending");
+  // await createTableNumber(4, "pending");
+  // await createTableNumber(5, "pending");
+  // await createTableNumber(6, "pending");
+  // await createTableNumber(7, "pending");
+
+  
 
   // Creating products
 
@@ -639,15 +643,15 @@ async function main() {
     "https://res.cloudinary.com/da8jnpdza/image/upload/v1715171836/strawberry_cake_ncw1jm.png"
   );
 
-  // for (let i = 1; i <= 7; i++) {
-  //   await createTable(i);
-  // }
+  for (let i = 1; i <= 7; i++) {
+    await createTable(i);
+  }
 
   await createOrder(1, [
-    { productId: 1, quantity: 2, orderStatus: "pending" },
-    { productId: 2, quantity: 1, orderStatus: "pending" },
-    { productId: 3, quantity: 3, orderStatus: "pending" },
-    { productId: 4, quantity: 2, orderStatus: "pending" },
+    { productId: 1, quantity: 2 },
+    { productId: 2, quantity: 1 },
+    { productId: 3, quantity: 3 },
+    { productId: 4, quantity: 2 },
   ]);
 
   // await createOrderTwo(1, [

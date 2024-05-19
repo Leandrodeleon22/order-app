@@ -38,10 +38,8 @@ export default function Contact() {
 
   return (
     <>
-      <div className="flex justify-between mx-4">
-        <div className="w-1/2 p-4 flex flex-col min-h-screen">
-          {" "}
-          {/* Added flex flex-col min-h-screen */}
+      <div className="flex justify-between mx-4 min-h-screen">
+        <div className="w-1/2 p-4">
           <h2 className="text-2xl font-bold">Contact Information:</h2>
           <br />
           <iframe
