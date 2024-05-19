@@ -40,6 +40,7 @@ export const addOrder = async (data) => {
         productId: data.productId,
         orderStatus: "pending",
         quantity: data.quantity || 1,
+        note: data.customerNote,
       },
     });
 
