@@ -6,6 +6,9 @@ import Footer from "../components/Footer";
 import { headers } from "next/headers";
 // import { orderContext } from "../lib/orderContext";
 import { OrderProvider } from "../lib/orderContext";
+// import ToastProvider from "../components/ToastProvider";
+// import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,12 +31,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <OrderProvider>
-          {/* <NavBar /> */}
-          {tableNum ? <NavBar /> : ""}
-          {children}
-          {/* <Footer /> */}
-        </OrderProvider>
+        {/* <OrderProvider> */}
+        {/* <ToastContainer> */}
+        {/* <NavBar /> */}
+        {tableNum ? <NavBar /> : ""}
+        {children}
+        <Toaster position="top-right" reverseOrder={false} />
+        {/* <Footer /> */}
+        {/* </ToastContainer> */}
+        {/* </OrderProvider> */}
       </body>
     </html>
   );

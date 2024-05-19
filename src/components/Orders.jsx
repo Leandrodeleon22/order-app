@@ -10,6 +10,7 @@ import DeleteAllOrdersButton from "./DeleteAllOrdersButton";
 import { formattedPrice } from "../utils/utils";
 import { OrderContext } from "../lib/orderContext";
 import { orderStore } from "../store/order";
+import ConfirmOrderBtn from "../components/ConfirmOrderBtn";
 
 const Orders = async ({ tableId, urlString }) => {
   // const { orders, setAllOrders } = useContext(OrderContext);
@@ -94,12 +95,13 @@ const Orders = async ({ tableId, urlString }) => {
 
       <div className="flex flex-col  items-center mt-14">
         <span className="font-bold text-[1.7rem] text-red-500 ">TOTAL</span>
-        <span className="font-bold text-[1.25rem]">${totalPrice}</span>
+        <span className="font-bold text-[1.25rem]">${totalPrice}.00</span>
       </div>
 
-      <button className="bg-red-500 rounded-md py-3 font-bold text-white mt-5 hover:bg-red-600 text-[1.1rem]">
+      {/* <button className="bg-red-500 rounded-md py-3 font-bold text-white mt-5 hover:bg-red-600 text-[1.1rem]">
         Confirm Order
-      </button>
+      </button> */}
+      <ConfirmOrderBtn />
     </div>
   );
 };
