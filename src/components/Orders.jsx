@@ -22,6 +22,7 @@ const Orders = async ({ tableId, urlString }) => {
   // const headerList = headers();
   const url = new URL(headers().get("x-url"));
   const searchParams = url.searchParams;
+
   // console.log(searchParams);
 
   // const updateOrder = orderStore((state) => state.updateOrder);
@@ -100,7 +101,7 @@ const Orders = async ({ tableId, urlString }) => {
             orderId={order.orderId}
             tableId={order.tableId}
             isAvailable={order.table.isAvailable}
-            // urlString={urlString}
+            urlString={urlString}
           />
         );
       })}

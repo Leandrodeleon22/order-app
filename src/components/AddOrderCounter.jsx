@@ -17,6 +17,7 @@ const AddOrderCounter = ({
         onClick={() => {
           decrementQuantity();
         }}
+        disabled={!isAvailable}
       >
         <FaMinus />
       </button>
