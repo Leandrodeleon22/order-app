@@ -21,6 +21,8 @@ export const getAllTables = async () => {
   // noStore();
   try {
     const data = await prisma.table.findMany();
+    // console.log(data);
+    data.sort((a, b) => a.tableId - b.tableId);
     return data;
   } catch (error) {
     console.log("error");
@@ -113,6 +115,7 @@ export const getAllOrders = async (tableId) => {
       // distinct: ["productId"],
       include: {
         product: true,
+        table: true,
       },
     });
 
@@ -137,7 +140,7 @@ export const getAllOrders = async (tableId) => {
     // revalidatePath(`/admin`);
     return orders;
   } catch (error) {
-    console.log("error in getall orders");
+    console.log("error in getall orders", error);
   }
 };
 

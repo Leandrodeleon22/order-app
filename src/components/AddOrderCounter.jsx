@@ -8,6 +8,7 @@ const AddOrderCounter = ({
   quantity,
   incrementQuantity,
   decrementQuantity,
+  isAvailable,
 }) => {
   return (
     <div className="flex">
@@ -27,6 +28,7 @@ const AddOrderCounter = ({
         onClick={() => {
           incrementQuantity();
         }}
+        disabled={!isAvailable}
       >
         <FaPlus />
       </button>

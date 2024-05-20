@@ -4,17 +4,19 @@ import { MdDeleteOutline } from "react-icons/md";
 
 import { deleteAllOrder } from "../lib/actions";
 import { useRouter } from "next/navigation";
-const DeleteAllOrdersButton = ({ tableId }) => {
+const DeleteAllOrdersButton = ({ tableId, isAvailable }) => {
   const router = useRouter();
   return (
     <>
-      <MdDeleteOutline
-        className="cursor-pointer"
+      <button
         onClick={async () => {
           await deleteAllOrder(tableId);
           router.refresh();
         }}
-      />
+        disabled={!isAvailable}
+      >
+        <MdDeleteOutline />
+      </button>
     </>
   );
 };
