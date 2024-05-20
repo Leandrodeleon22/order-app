@@ -6,12 +6,21 @@ import Link from "next/link";
 import { BiFoodMenu } from "react-icons/bi";
 import { useSearchParams } from "next/navigation";
 
-const Menu = () => {
+const Menu = ({ urlString }) => {
   const tableParams = useSearchParams();
   const table = tableParams.get("table");
 
   const [activeLink, setActiveLink] = useState(0);
-  console.log(activeLink);
+  // console.log(urlString);
+
+  const url = new URL(urlString);
+
+  const pathName = url.pathname;
+  const parts = pathName.split("/");
+  const linkActive = parts[2];
+
+  console.log(linkActive);
+
   const handleLinkClick = (index) => {
     // setActiveLink(index === activeLink ? null : index);
     setActiveLink(index === activeLink ? activeLink : index);

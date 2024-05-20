@@ -21,7 +21,7 @@ export default async function Layout({ children, params }) {
   return (
     <>
       <main className="flex w-11/12 justify-between mt-10 mx-auto min-h-screen min-w-min">
-        <Menu />
+        <Menu urlString={urlString} />
         {children}
         <Orders
           tableId={tableNum}
