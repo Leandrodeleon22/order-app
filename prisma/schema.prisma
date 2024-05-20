@@ -37,6 +37,7 @@ model Product {
 model ProductCategory {
   productCat         Int         @id @default(autoincrement())
   name               String      @unique
+  isActive           Boolean     @default(true)
 
   // Define the reverse relationship with Product
   products           Product[]

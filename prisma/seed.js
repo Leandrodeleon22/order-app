@@ -11,11 +11,12 @@ async function createCategoryIfNotExists(categoryName) {
     await prisma.productCategory.create({
       data: {
         name: categoryName,
+        isActive: true,
       },
     });
     console.log(`Created product category: ${categoryName}`);
   } else {
-    console.log(`Product category '${categoryName}' already exists`);
+    console.log(`Product category '${categoryName}' already exists and is active`);
   }
 }
 
@@ -229,59 +230,6 @@ async function createOrder(tableId, products) {
   console.log(`Created order for table ${tableId}.`);
 }
 
-// async function createOrderTwo(tableId, products) {
-//   // Find the table by its ID
-//   const table = await prisma.table.findUnique({
-//     where: { tableId: tableId },
-//     include: { orders: true }, // Include orders related to this table
-//   });
-
-//   if (!table) {
-//     console.log(`Table ${tableId} does not exist.`);
-//     return;
-//   }
-
-//   // Create a new order
-//   const order = await prisma.order.create({
-//     data: {
-//       tableId: tableId,
-//       orderStatus: "pending",
-//       totalPrice: 0,
-//     },
-//   });
-
-//   // Calculate the total price of the order and update the order's total price
-//   let totalPrice = 0;
-//   for (const { productId, quantity } of products) {
-//     const product = await prisma.product.findFirst({
-//       where: { productId: productId },
-//     });
-
-//     if (!product) {
-//       console.log(`Product with ID ${productId} not found.`);
-//       continue;
-//     }
-
-//     totalPrice += product.price * quantity;
-
-//     // Create an order detail for each product in the order
-//     await prisma.orderDetail.create({
-//       data: {
-//         orderId: order.orderId,
-//         productId: productId,
-//         quantity: quantity,
-//       },
-//     });
-//   }
-
-//   // Update the order's total price
-//   await prisma.order.update({
-//     where: { orderId: order.orderId },
-//     data: { totalPrice: totalPrice },
-//   });
-
-//   console.log(`Order created for Table ${tableId}. Total Price: $${totalPrice}`);
-// }
 
 async function createAdmin(username, email, password) {
   const existingAdmin = await prisma.user.findFirst({
@@ -354,14 +302,10 @@ async function createManager(username, email, password) {
   }
 }
 
-// async function createTableNumber(tableNumber, orderStatus) {
-//   await prisma.table.create({
-//     data: {
-//       tableNumber: tableNumber,
-//       orderStatus: orderStatus,
-//     },
-//   });
-// }
+
+
+
+
 
 async function main() {
   await createCategoryIfNotExists("burgers");
@@ -369,17 +313,9 @@ async function main() {
   await createCategoryIfNotExists("desserts");
   await createCategoryIfNotExists("beverages");
 
-  // await createTableNumber(1, "pending");
-  // await createTableNumber(2, "pending");
-  // await createTableNumber(3, "pending");
-  // await createTableNumber(4, "pending");
-  // await createTableNumber(5, "pending");
-  // await createTableNumber(6, "pending");
-  // await createTableNumber(7, "pending");
 
   
 
-  // Creating products
 
   await createPizzaProduct(
     "Abbotsford pizza",
@@ -654,10 +590,6 @@ async function main() {
     { productId: 4, quantity: 2 },
   ]);
 
-  // await createOrderTwo(1, [
-  //   { productId: 1, quantity: 2 },
-  //   { productId: 2, quantity: 3 },
-  // ]);
 
   await createFeedback([5, 4, 3, "This is the best place I have been to."]);
 
@@ -677,5 +609,4 @@ main().catch((e) => {
 
 //npx prisma db seed               - to seed(update) the database (this file)
 //node seed.js                     - seed.js
-//npx migrate dev --name somename  - to create a migration (update schema.prisma file)
-//npx prisma migrate dev --name somename
+//npx prisma migrate dev --name somename  - to create a migration (update schema.prisma file)
