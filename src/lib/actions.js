@@ -38,7 +38,7 @@ export const addOrder = async (data) => {
       data: {
         tableId: data.tableNum,
         productId: data.productId,
-        orderStatus: "pending",
+
         quantity: data.quantity || 1,
         note: data.customerNote,
       },
@@ -115,6 +115,43 @@ export const decrementQuantity = async (data) => {
       },
       data: {
         quantity: data.quantity - 1,
+      },
+    });
+    console.log(product);
+    // return product;
+    // revalidatePath(`/home?table=${data.tableId}`);
+  } catch (error) {
+    console.log("decrement order");
+  }
+};
+
+export const updateOrderStatus = async (data) => {
+  try {
+    console.log(data.strMessage);
+    const product = await prisma.table.update({
+      where: {
+        tableId: data.tableId,
+      },
+      data: {
+        orderStatus: data.strMessage,
+      },
+    });
+    console.log(product);
+    // return product;
+    // revalidatePath(`/home?table=${data.tableId}`);
+  } catch (error) {
+    console.log("decrement order");
+  }
+};
+
+export const updateTableIsAvailable = async (data) => {
+  try {
+    const product = await prisma.table.update({
+      where: {
+        tableId: data.tableId,
+      },
+      data: {
+        isAvailable: data.available,
       },
     });
     console.log(product);

@@ -5,7 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
 import { decrementQuantity, incrementQuantity } from "../lib/actions";
 import { useRouter } from "next/navigation";
-const Counter = ({ quantity, tableId, orderId }) => {
+const Counter = ({ quantity, tableId, orderId, isAvailable }) => {
   const router = useRouter();
   return (
     <div className="flex">
@@ -15,6 +15,7 @@ const Counter = ({ quantity, tableId, orderId }) => {
           await decrementQuantity({ quantity, tableId, orderId });
           router.refresh();
         }}
+        disabled={!isAvailable}
       >
         <FaMinus />
       </button>
@@ -27,6 +28,7 @@ const Counter = ({ quantity, tableId, orderId }) => {
           await incrementQuantity({ quantity, tableId, orderId });
           router.refresh();
         }}
+        disabled={!isAvailable}
       >
         <FaPlus />
       </button>

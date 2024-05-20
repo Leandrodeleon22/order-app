@@ -24,6 +24,7 @@ const Product = ({
   weight,
   description,
   price,
+  isAvailable,
   order,
   note,
 }) => {
@@ -41,7 +42,7 @@ const Product = ({
   const [customerNote, setNote] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  const imageLoader = ({ src, width, quality }) => {
+  const imageLoader = ({ src, width, quality, isAvailable }) => {
     // return `https://example.com/${src}?w=${width}&q=${quality || 75}`
     // return `https://res.cloudinary.com/da8jnpdza/image/upload/v1714873725/${src}?w=${width}&q=${
     //   quality || 75
@@ -172,6 +173,7 @@ const Product = ({
                     quantity={quantity}
                     incrementQuantity={handleIncrementOrderQuantity}
                     decrementQuantity={handleIDecrementOrderQuantity}
+                    isAvailable={isAvailable}
                   />
                 </div>
 
@@ -203,6 +205,7 @@ const Product = ({
                         });
                         router.refresh();
                       }}
+                      disabled={!isAvailable}
                     >
                       ADD TO ORDER
                     </button>
@@ -257,6 +260,7 @@ const Product = ({
             await addOrder({ productId, tableNum });
             router.refresh();
           }}
+          disabled={!isAvailable}
         >
           ADD
         </button>

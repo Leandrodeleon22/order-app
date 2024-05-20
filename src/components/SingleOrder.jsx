@@ -15,19 +15,24 @@ const SingleOrder = ({
   orderId,
   tableId,
   urlString,
+  isAvailable,
 }) => {
   const actualPrice = formattedPrice(price);
   //   await deleteOrder(orderId);
   //   const router = useRouter();
   //   console.log(orderId);
-
+  // console.log(isAvailable);
   return (
     <>
       <div className="bg-slate-100 p-2 rounded-md mb-5">
         <div className="flex justify-between">
           <p className="font-semibold">{name}</p>
 
-          <DeleteOrderButton orderId={orderId} tableId={tableId} />
+          <DeleteOrderButton
+            orderId={orderId}
+            tableId={tableId}
+            isAvailable={isAvailable}
+          />
 
           {/* <IoCloseSharp
             className="cursor-pointer"
@@ -40,7 +45,12 @@ const SingleOrder = ({
         {/* <p className="italic text-gray-500">Delicious toronto burger</p> */}
         <div className="flex justify-between mt-4">
           <span className="font-bold">${actualPrice}</span>
-          <Counter quantity={quantity} tableId={tableId} orderId={orderId} />
+          <Counter
+            quantity={quantity}
+            tableId={tableId}
+            orderId={orderId}
+            isAvailable={isAvailable}
+          />
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
 // import Product from "@/components/Product";
 import Product from "../../../components/Product";
 // import ProductsWrapper from "@/components/ProductsWrapper";
-import { fetchAllDesserts } from "../../../lib/data";
+import { fetchAllDesserts, getSingleTableNumber } from "../../../lib/data";
 
 import ProductsWrapper from "../../../components/ProductsWrapper";
 
@@ -10,6 +10,9 @@ import React from "react";
 const Desserts = async ({ searchParams }) => {
   const allPizzas = await fetchAllDesserts();
   const params = searchParams;
+  const tableNum = parseInt(params.table);
+  const table = await getSingleTableNumber(tableNum);
+  const { isAvailable } = table[0];
   return (
     <ProductsWrapper>
       <div
@@ -30,6 +33,7 @@ const Desserts = async ({ searchParams }) => {
           return (
             <Product
               productId={productId}
+              isAvailable={isAvailable}
               tableNumber={params.table}
               key={productId}
               productCategoryId={productCategoryId}

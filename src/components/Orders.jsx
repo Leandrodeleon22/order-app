@@ -3,7 +3,12 @@
 import { MdDeleteOutline } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
 import Counter from "./Counter";
-import { getAllOrders, getOrders, getProductsOrder } from "../lib/data";
+import {
+  getAllOrders,
+  getOrders,
+  getProductsOrder,
+  getSingleTableNumber,
+} from "../lib/data";
 import SingleOrder from "../components/SingleOrder";
 import { headers } from "next/headers";
 import DeleteAllOrdersButton from "./DeleteAllOrdersButton";
@@ -38,8 +43,10 @@ const Orders = async ({ tableId, urlString }) => {
   // console.log(tableId);
   const allOrders = await getAllOrders(tableId);
   // const orders = await getOrders(tableId);
-  // console.log(orders);
-  // console.log(allOrders);
+  console.log(allOrders);
+  const table = await getSingleTableNumber(tableId);
+
+  const { isAvailable, orderStatus } = table[0];
 
   const totalPrice = allOrders
     .map((order) => {
@@ -48,6 +55,8 @@ const Orders = async ({ tableId, urlString }) => {
       return price;
     })
     .reduce((total, num) => total + num, 0);
+
+  const ordersLength = allOrders.length;
   // console.log(totalPrice);
   // console.log(allOrders);
   // const products = allOrders.map((obj) => {
@@ -64,7 +73,8 @@ const Orders = async ({ tableId, urlString }) => {
       <div className="flex justify-between items-center mb-3">
         <h1 className="font-medium text-[1.2rem] text-red-500 ">My Orders</h1>
         {/* <MdDeleteOutline className="cursor-pointer" /> */}
-        <DeleteAllOrdersButton tableId={tableId} />
+
+        <DeleteAllOrdersButton tableId={tableId} isAvailable={isAvailable} />
       </div>
 
       {/* <div className="bg-slate-100 p-2 rounded-md">
@@ -80,6 +90,7 @@ const Orders = async ({ tableId, urlString }) => {
       </div> */}
 
       {allOrders.map((order) => {
+        // console.log(order.table.isAvailable);
         return (
           <SingleOrder
             key={order.orderId}
@@ -88,6 +99,7 @@ const Orders = async ({ tableId, urlString }) => {
             quantity={order.quantity}
             orderId={order.orderId}
             tableId={order.tableId}
+            isAvailable={order.table.isAvailable}
             // urlString={urlString}
           />
         );
@@ -101,7 +113,12 @@ const Orders = async ({ tableId, urlString }) => {
       {/* <button className="bg-red-500 rounded-md py-3 font-bold text-white mt-5 hover:bg-red-600 text-[1.1rem]">
         Confirm Order
       </button> */}
-      <ConfirmOrderBtn />
+      <ConfirmOrderBtn
+        ordersLength={ordersLength}
+        isAvailable={isAvailable}
+        orderStatus={orderStatus}
+        tableId={tableId}
+      />
     </div>
   );
 };

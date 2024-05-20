@@ -2,7 +2,7 @@
 import Product from "../../../components/Product";
 // import ProductsWrapper from "@/components/ProductsWrapper";
 // import { fetchAllBurger } from "@/lib/data";
-import { fetchAllBurger } from "../../../lib/data";
+import { fetchAllBurger, getSingleTableNumber } from "../../../lib/data";
 
 import ProductsWrapper from "../../../components/ProductsWrapper";
 
@@ -15,6 +15,9 @@ const Burgers = async ({ searchParams }) => {
   // console.log(searchParams);
   // const order = await addOrder()
   const params = searchParams;
+  const tableNum = parseInt(params.table);
+  const table = await getSingleTableNumber(tableNum);
+  const { isAvailable } = table[0];
   return (
     <ProductsWrapper>
       <div
@@ -35,6 +38,7 @@ const Burgers = async ({ searchParams }) => {
           } = product;
           return (
             <Product
+              isAvailable={isAvailable}
               productId={productId}
               tableNumber={params.tableNumber}
               key={productId}

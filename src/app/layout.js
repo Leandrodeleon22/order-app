@@ -33,8 +33,8 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         {/* <OrderProvider> */}
         {/* <ToastContainer> */}
-        {/* <NavBar /> */}
-        {tableNum ? <NavBar /> : ""}
+        <NavBar />
+        {/* {tableNum ? <NavBar /> : ""} */}
         {children}
         <Toaster position="top-right" reverseOrder={false} />
         {/* <Footer /> */}

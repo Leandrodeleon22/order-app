@@ -1,5 +1,9 @@
 import Footer from "../../components/Footer";
-import { fetchAllProduct } from "../../lib/data";
+import {
+  fetchAllProduct,
+  getAllTables,
+  getSingleTableNumber,
+} from "../../lib/data";
 // import { products } from "@/mock-data/placeholder-data";
 
 // import Footer from "../../components/Footer";
@@ -17,9 +21,16 @@ export default async function Home({ searchParams }) {
   // console.log(allProducts);
   const params = searchParams;
   // console.log(params.table);
+
+  const tableNum = parseInt(params.table);
+  console.log(tableNum);
+
+  const table = await getSingleTableNumber(tableNum);
+  console.log(table);
+  const { isAvailable } = table[0];
   return (
     <ProductsWrapper>
-      <div className=" grid grid-cols-3 gap-4 justify-between flex flex-col min-h-screen">
+      <div className=" grid grid-cols-3 gap-4 justify-between  flex-col min-h-screen">
         {" "}
         {/* Added flex flex-col min-h-screen */}
         {allProducts.map((product) => {
@@ -39,6 +50,7 @@ export default async function Home({ searchParams }) {
               productId={productId}
               // key={productId}
               // order={order}
+              isAvailable={isAvailable}
               tableNumber={params.table}
               key={productId}
               productCategoryId={productCategoryId}

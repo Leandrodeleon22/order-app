@@ -7,7 +7,13 @@ export default async function Admin() {
   return (
     <main className=" flex justify-center flex-col items-center">
       {allTables.map((table) => {
-        return <TableOrder key={table.tableId} tableNum={table.tableNumber} />;
+        return (
+          <TableOrder
+            key={table.tableId}
+            tableNum={table.tableNumber}
+            orderStatus={table.orderStatus}
+          />
+        );
       })}
 
       {/* <section className="bg-slate-100 w-4/5 my-7 p-6 rounded-md">

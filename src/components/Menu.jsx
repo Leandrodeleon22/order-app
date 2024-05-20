@@ -11,9 +11,10 @@ const Menu = () => {
   const table = tableParams.get("table");
 
   const [activeLink, setActiveLink] = useState(0);
-
+  console.log(activeLink);
   const handleLinkClick = (index) => {
-    setActiveLink(index === activeLink ? null : index);
+    // setActiveLink(index === activeLink ? null : index);
+    setActiveLink(index === activeLink ? activeLink : index);
   };
 
   return (
