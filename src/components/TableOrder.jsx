@@ -6,6 +6,7 @@ import { formattedPrice } from "../utils/utils";
 import ClearAllBtn from "../components/ClearAllBtn";
 import DeleteOrderAdminBtn from "../components/DeleteOrderAdminBtn";
 import ReadyBtn from "./ReadyBtn";
+import PayButton from "../components/PayButton";
 
 export default async function TableOrder({ tableNum, orderStatus }) {
   // const allOrders = await getAllOrders(tableNum);
@@ -120,6 +121,7 @@ export default async function TableOrder({ tableNum, orderStatus }) {
               clear all
             </button> */}
             <ClearAllBtn tableNum={tableNum} name="Clear All" />
+            <PayButton />
           </div>
           <div className="flex flex-col items-center">
             <span className="font-bold">Total Price</span>
