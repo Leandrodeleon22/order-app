@@ -1,37 +1,6 @@
-// import { getServerSession } from 'next-auth';
-// import { authOptions } from '../api/auth/[...nextauth]/route';
-// import { redirect } from 'next/navigation';
-// import NavBar from '../../components/NavBar';
-
-
-// export default async function Dashboard() {
-//   const session = await getServerSession(authOptions);
-
-//   if (!session || !session.user || !session.user.role) {
-//     redirect('/api/auth/signin');
-    
-//   }
-//   if (session.user.role === 'ADMIN') {
-//     redirect('/dashboard');
-//   }
-
-//   return (
-//     <div>
-//       <NavBar />
-//       <div className="inline">
-//         <br />
-//         <h1 className="bg-gray-100 text-xl font-bold mb-4">Manager Dashboard - Server Session - {JSON.stringify(session)}</h1>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
-import NavBar from '../../components/NavBar';
 import { prisma } from '../../lib/prisma';
 import ReadOnlyStars from '../../components/ReadOnlyStars';
 import Footer from '../../components/Footer';
@@ -46,17 +15,31 @@ export default async function Dashboard() {
     redirect('/dashboard');
   }
 
-  // Fetch all feedbacks from the Feedback model
+
   const feedbacks = await prisma.feedback.findMany();
+
+
+  const orders = await prisma.order.findMany({
+    include: {
+      product: true
+    },
+  });
+
+  const totalEarned = orders.reduce((total, order) => {
+    return total + (order.quantity * order.product.price);
+  }, 0);
+
+  const itemsSold = orders.reduce((total, order) => {
+    return total + order.quantity;
+  }, 0);
 
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex-grow">
-        <NavBar />
         <div className="inline">
           <br />
           <h1 className="bg-gray-100 text-xl font-bold mb-4 text-center">
-            Manager Dashboard - Server Session - 🔐 <u>Name</u>: {JSON.stringify(session.user.name)} 🔐 <u>Email</u>: {JSON.stringify(session.user.email)} 🔐 <u>Role</u>: {JSON.stringify(session.user.role)} 🔐
+            Manager Dashboard - 🔐 <u>Name</u>: {JSON.stringify(session.user.name)} 🔐 <u>Email</u>: {JSON.stringify(session.user.email)} 🔐 <u>Role</u>: {JSON.stringify(session.user.role)} 🔐
           </h1>
         </div>
         <div className="flex flex-col items-center justify-center">
@@ -76,6 +59,21 @@ export default async function Dashboard() {
             ) : (
               <p>No feedback available</p>
             )}
+          </div>
+          <div className="mt-8 w-full flex flex-col items-center">
+            <div>
+              <h2 className="text-lg font-bold">Total Earned:</h2>
+            </div>
+            <div className="bg-white rounded-lg p-4 flex items-center justify-center w-full max-w-sm mt-2">
+              <h2 className="text-lg font-bold">${(totalEarned / 100).toFixed(2)}</h2>
+            </div>
+            <br/>
+            <div>
+              <h2 className="text-lg font-bold">Total Items Sold:</h2>
+            </div>
+            <div className="bg-white rounded-lg p-4 flex items-center justify-center w-full max-w-sm mt-2">
+              <h2 className="text-lg font-bold">{itemsSold}</h2>
+            </div>
           </div>
         </div>
       </div>

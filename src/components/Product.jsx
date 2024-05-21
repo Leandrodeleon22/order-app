@@ -83,19 +83,19 @@ const Product = ({
                       name === "Dr Pepper"
                         ? 85
                         : name === "Fanta"
-                        ? 85
-                        : name === "Canada Dry"
-                        ? 85
-                        : 150
+                          ? 85
+                          : name === "Canada Dry"
+                            ? 85
+                            : 150
                     }
                     height={
                       name === "Dr Pepper"
                         ? 85
                         : name === "Fanta"
-                        ? 85
-                        : name === "Canada Dry"
-                        ? 85
-                        : 150
+                          ? 85
+                          : name === "Canada Dry"
+                            ? 85
+                            : 150
                     }
                     alt={name}
                   />
