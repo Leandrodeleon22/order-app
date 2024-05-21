@@ -26,14 +26,14 @@ export default function RootLayout({ children }) {
 
   const tableNum = parseInt(tableNumStr);
   const urlString = header_url.slice(0, -1);
-  // console.log(tableNum);
+  console.log(tableNum);
   // console.log(urlString);
   return (
     <html lang="en">
       <body className={inter.className}>
         {/* <OrderProvider> */}
         {/* <ToastContainer> */}
-        <NavBar />
+        <NavBar tableNum={tableNum} />
         {/* {tableNum ? <NavBar /> : ""} */}
         {children}
         <Toaster position="top-right" reverseOrder={false} />
