@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 
 export function protectedPage(tableNum) {
-  const tableNumber = true;
+  const tableNumber = tableNum;
 
-  if (tableNumber) {
+  if (!tableNumber) {
     return redirect("/");
   }
 }

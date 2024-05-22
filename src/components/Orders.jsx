@@ -12,7 +12,7 @@ import {
 import SingleOrder from "../components/SingleOrder";
 import { headers } from "next/headers";
 import DeleteAllOrdersButton from "./DeleteAllOrdersButton";
-import { formattedPrice } from "../utils/utils";
+import { formattedPrice, protectedPage } from "../utils/utils";
 import { OrderContext } from "../lib/orderContext";
 import { orderStore } from "../store/order";
 import ConfirmOrderBtn from "../components/ConfirmOrderBtn";
@@ -20,6 +20,7 @@ import ConfirmOrderBtn from "../components/ConfirmOrderBtn";
 const Orders = async ({ tableId, urlString }) => {
   // const { orders, setAllOrders } = useContext(OrderContext);
   // const headerList = headers();
+  protectedPage(tableId);
   const url = new URL(headers().get("x-url"));
   const searchParams = url.searchParams;
 

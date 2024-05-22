@@ -10,16 +10,8 @@ const Menu = ({ urlString }) => {
   const tableParams = useSearchParams();
   const table = tableParams.get("table");
 
-  const [activeLink, setActiveLink] = useState(0);
+  const [activeLink, setActiveLink] = useState(null);
   // console.log(urlString);
-
-  const url = new URL(urlString);
-
-  const pathName = url.pathname;
-  const parts = pathName.split("/");
-  const linkActive = parts[2];
-
-  console.log(linkActive);
 
   const handleLinkClick = (index) => {
     // setActiveLink(index === activeLink ? null : index);

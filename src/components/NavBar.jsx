@@ -6,6 +6,7 @@ import NavbarList from "./NavbarList";
 import { getServerSession } from "next-auth";
 import { LogoutButton } from "../app/auth";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
+import { protectedPage } from "../utils/utils";
 
 const links = [
   { name: "Menu", href: "/home" },
@@ -14,8 +15,10 @@ const links = [
   { name: "Feedback", href: "/feedback" },
 ];
 
-const NavBar = async () => {
+const NavBar = async ({ tableNum }) => {
   const session = await getServerSession(authOptions);
+
+  // protectedPage(tableNum);
 
   return (
     <nav className="w-full bg-white flex justify-between px-10 py-3">
