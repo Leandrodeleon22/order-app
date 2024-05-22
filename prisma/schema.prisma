@@ -1,12 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-
-
-
 
 generator client {
   provider = "prisma-client-js"
@@ -33,13 +24,13 @@ model Product {
   orders             Order[]
 }
 
-// Product categories model
+
 model ProductCategory {
   productCat         Int         @id @default(autoincrement())
   name               String      @unique
   isActive           Boolean     @default(true)
 
-  // Define the reverse relationship with Product
+
   products           Product[]
 }
 
@@ -49,7 +40,7 @@ enum userRole {
   WAITER
 }
 
-// Admin model
+
 model User {
   userId            Int         @id @default(autoincrement())
   username           String
@@ -58,7 +49,7 @@ model User {
   role               userRole   @default(MANAGER)
 }
 
-// Orders model
+
 model Order {
   orderId            Int         @id @default(autoincrement())
   tableId            Int         // Foreign key reference to Table
@@ -67,13 +58,11 @@ model Order {
   createdAt          DateTime    @default(now())
   note               String?
 
-  // Define the relationship with Table
+
   table              Table       @relation(fields: [tableId], references: [tableId])
-  // Define the relationship with Product
   product            Product     @relation(fields: [productId], references: [productId])
 }
 
-// Tables model
 model Table {
   tableId            Int         @id @default(autoincrement())
   tableNumber        Int
@@ -84,7 +73,7 @@ model Table {
   orders             Order[]
 }
 
-// Feedback model
+
 model Feedback {
   feedbackId         Int         @id @default(autoincrement())
   answerOne          Int
@@ -92,109 +81,3 @@ model Feedback {
   answerThree        Int
   answerFour         String
 }
-
-
-
-
-
-
-
-// generator client {
-//   provider = "prisma-client-js"
-// }
-
-// datasource db {
-//   provider = "postgresql"
-//   url      = "postgresql://labber:password@localhost:5432/postgres_order?schema=public"
-// }
-
-
-// // Products model
-// model Product {
-//   productId          Int         @id @default(autoincrement())
-//   productCategoryId  Int         // Foreign key reference to ProductCategory
-//   image              String?
-//   orderDetailId      Int?
-//   name               String
-//   weight             String
-//   description        String?
-//   price              Int
-//   note               String?
-
-//   // Define the relationship with ProductCategory
-//   productCategory    ProductCategory @relation(fields: [productCategoryId], references: [productCat])
-//   orderDetail        OrderDetail?
-// }
-
-// // Product categories model
-// model ProductCategory {
-//   productCat         Int         @id @default(autoincrement())
-//   name               String      @unique
-
-//   // Define the reverse relationship with Product
-//   products           Product[]
-// }
-
-// enum userRole {
-//   MANAGER
-//   ADMIN
-//   WAITER
-// }
-
-// // User model
-// model User {
-//   userId            Int         @id @default(autoincrement())
-//   username           String
-//   email              String
-//   password           String
-//   role               userRole   @default(MANAGER)
-// }
-
-// // Orders model
-// model OrderDetail {
-//   orderDetailId     Int          @id @default(autoincrement())
-//   orderId            Int         // Foreign key reference to Order
-//   productId          Int         @unique
-//   quantity           Int
-//   createdAt          DateTime    @default(now())
-
-//   product            Product     @relation(fields: [productId], references: [productId])
-//   order              Order       @relation(fields: [orderId], references: [orderId])
-// }
-
-// // Orders model
-// model Order {
-//   orderId            Int         @id @default(autoincrement())
-//   tableId            Int         // Foreign key reference to Table
-//   orderStatus        String
-//   createdAt          DateTime    @default(now())
-//   totalPrice         Int?
-
-//   // Define the relationship with Table
-//   table              Table       @relation(fields: [tableId], references: [tableId])
-//   // Order can have many OrderDetails
-//   orderDetails       OrderDetail[]
-// }
-
-// // Tables model
-// model Table {
-//   tableId            Int         @id @default(autoincrement())
-//   tableNumber        Int
-
-//   // Define the reverse relationship with Order
-//   orders             Order[]
-//   feedbacks           Feedback[]
-// }
-
-// // Feedback model
-// model Feedback {
-//   feedbackId         Int         @id @default(autoincrement())
-//   answerOne          Int
-//   answerTwo          Int
-//   answerThree        Int
-//   answerFour         String
-//   tableId            Int         // Foreign key reference to Table
-
-//   // Define the relationship with Table
-//   table              Table       @relation(fields: [tableId], references: [tableId])
-// }
