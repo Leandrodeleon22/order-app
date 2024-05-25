@@ -13,6 +13,7 @@ const links = [
   { name: "About Us", href: "/about" },
   { name: "Contact Us", href: "/contact" },
   { name: "Feedback", href: "/feedback" },
+  { name: "Admin", href: "/admin" },
 ];
 
 const NavBar = async ({ tableNum }) => {
