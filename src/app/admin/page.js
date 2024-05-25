@@ -1,5 +1,6 @@
 import TableOrder from "../../components/TableOrder";
 import { getAllTables } from "../../lib/data";
+import { protectedPage } from "../../utils/utils";
 
 export default async function Admin() {
   const allTables = await getAllTables();

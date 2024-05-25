@@ -23,7 +23,7 @@ export default async function Home({ searchParams }) {
   // console.log(params.table);
 
   const tableNum = parseInt(params.table);
-  console.log(tableNum);
+  // console.log(tableNum);
 
   const table = await getSingleTableNumber(tableNum);
   console.log(table);
